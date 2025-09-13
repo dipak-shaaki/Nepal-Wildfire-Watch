@@ -6,7 +6,7 @@ export default function AlertBanner() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/admin/alerts')
+    axios.get('http://localhost:8000/admin/public/alerts')
       .then((res) => {
         setAlerts(res.data);
       })

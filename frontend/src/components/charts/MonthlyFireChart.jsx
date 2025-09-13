@@ -18,7 +18,7 @@ export default function MonthlyFireChart() {
     datasets: [{
       label: 'Fires per Month',
       data: data.map(d => d.count),
-      backgroundColor: 'tomato',
+      backgroundColor: '#38bdf8',
     }],
   };
 

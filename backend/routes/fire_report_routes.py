@@ -2,7 +2,7 @@ import datetime
 from fastapi import APIRouter, HTTPException
 from bson import ObjectId
 
-from models.fire_report import FireReport
+from models.fire_report import FireReport, UpdateReportStatus
 from database.mongo import db
 fire_reports = db["fire_reports"]
 
@@ -54,7 +54,7 @@ async def get_report(report_id: str):
 # UPDATE status   PUT /reports/{report_id}/resolve
 # ------------------------------------------------------------------
 @router.put("/{report_id}/resolve", response_model=dict)
-async def update_report_status(report_id: str, status: dict):
+async def update_report_status(report_id: str, status: UpdateReportStatus):
     res = await fire_reports.update_one(
         {"_id": ObjectId(report_id)},
         {"$set": {"resolved": status.resolved}}

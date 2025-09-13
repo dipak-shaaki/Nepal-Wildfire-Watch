@@ -6,9 +6,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(BASE_DIR, "data", "nepal_fire_data_cleaned.csv")
 
 def load_fire_data():
-    if not os.path.exists(DATA_PATH):
-        raise FileNotFoundError(f"🔥 File not found at: {DATA_PATH}")
-    return pd.read_csv(DATA_PATH)
+    candidates = [
+        DATA_PATH,
+        os.path.join(BASE_DIR, "..", "everything else", "nepal_fire_data_cleaned.csv"),
+        os.path.join(BASE_DIR, "..", "everything else", "nepal fire data cleaned.csv"),
+        os.path.join(BASE_DIR, "data", "nepal_fire_data_cleaned.csv"),
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return pd.read_csv(path)
+    raise FileNotFoundError("🔥 Nepal fire data CSV not found in expected locations.")
 
 def get_yearly_fire_counts():
     df = load_fire_data()
@@ -52,3 +59,64 @@ def get_elevation_fire_counts():
     result = df.groupby('elevation_bin').size().reset_index(name='count')
 
     return result.to_dict(orient='records')
+
+
+def get_top_districts(limit: int = 15):
+    df = load_fire_data()
+    district_col = 'district' if 'district' in df.columns else None
+    if not district_col:
+        return []
+    counts = df.groupby(district_col).size().reset_index(name='count')
+    counts = counts.sort_values('count', ascending=False).head(limit)
+    return counts.rename(columns={district_col: 'district'}).to_dict(orient='records')
+
+
+def get_year_month_matrix():
+    df = load_fire_data()
+    if 'acq_date' not in df.columns:
+        return {"labels": [], "series": []}
+    df['acq_date'] = pd.to_datetime(df['acq_date'], errors='coerce')
+    df['year'] = df['acq_date'].dt.year
+    df['month'] = df['acq_date'].dt.month
+    pivot = df.pivot_table(index='year', columns='month', values='acq_date', aggfunc='count', fill_value=0)
+    years = list(map(int, pivot.index.tolist()))
+    # Ensure months 1..12 order
+    months = list(range(1, 13))
+    matrix = []
+    for y in years:
+        row = []
+        for m in months:
+            try:
+                row.append(int(pivot.loc[y, m]))
+            except Exception:
+                row.append(0)
+        matrix.append(row)
+    return {"years": years, "months": months, "matrix": matrix}
+
+
+def get_geo_sample(limit: int = 3000):
+    df = load_fire_data()
+    lat_col = None
+    lon_col = None
+    for lc in ["latitude", "lat", "y", "Latitude"]:
+        if lc in df.columns:
+            lat_col = lc
+            break
+    for lc in ["longitude", "lon", "x", "Longitude", "long"]:
+        if lc in df.columns:
+            lon_col = lc
+            break
+    if not lat_col or not lon_col:
+        return []
+    cols = [lat_col, lon_col]
+    extras = []
+    for c in ["confidence", "acq_date", "district", "province"]:
+        if c in df.columns:
+            extras.append(c)
+    cols = cols + extras
+    df_small = df[cols].dropna().sample(n=min(limit, len(df)), random_state=42)
+    # Normalize keys
+    df_small = df_small.rename(columns={lat_col: "latitude", lon_col: "longitude"})
+    if "acq_date" in df_small.columns:
+        df_small["acq_date"] = pd.to_datetime(df_small["acq_date"], errors="coerce").dt.strftime("%Y-%m-%d")
+    return df_small.to_dict(orient="records")

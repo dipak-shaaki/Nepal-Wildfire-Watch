@@ -23,8 +23,9 @@ import ResetPassword from "./pages/ResetPassword";
 import SensorStackChart from "./pages/SensorStackChart";
 import ReportFire from "./pages/ReportFire";
 import NepalScan from "./pages/NepalScan";
-import AlertsManagement from "./pages/AlertsManagement";
+
 import Alerts from "./pages/Alerts";
+import AlertsManagement from "./pages/AlertsManagement";
 
 // Protected Route component to prevent logged-in users from accessing login
 const ProtectedLoginRoute = ({ children }) => {
@@ -87,9 +88,16 @@ function AppContent() {
                             </RequireAdmin>
                         }
                     />
+                    <Route
+                        path="/alerts-management"
+                        element={
+                            <RequireAdmin>
+                                <AlertsManagement />
+                            </RequireAdmin>
+                        }
+                    />
                     <Route path="/sensor-stack-chart" element={<RequireAdmin><SensorStackChart /></RequireAdmin>} />
-                    <Route path="/nepal-scan" element={<RequireAdmin><NepalScan /></RequireAdmin>} />
-                    <Route path="/alerts-management" element={<RequireAdmin><AlertsManagement /></RequireAdmin>} />
+                    <Route path="/nepal-scan" element={<RequireAdmin><NepalScan /></RequireAdmin>} />                    
                     <Route path="/alerts" element={<Alerts />} />
                 </Routes>
             </main>

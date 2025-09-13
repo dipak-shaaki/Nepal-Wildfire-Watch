@@ -2,10 +2,15 @@
 
 This API predicts wildfire risk based on geographic and weather parameters.
 
+## Endpoints
+
+- `GET /predict-fire?lat=..&lon=..&date=..`
+- `POST /predict-manual`
+
 ## Requirements
 
 - Python 3.9+
-- FastAPI, Uvicorn, Requests, Pandas, Joblib, Random forest
+- FastAPI, Uvicorn, Requests, Pandas, Joblib, CatBoost
 
 ## Run
 
@@ -30,6 +35,15 @@ def test_predict_fire():
 │ └── enrich.py
 └── venv/ (optional, ignored in git)
 
+perl
+Copy code
+
+#### How:
+Generate a `requirements.txt`:
+```bash
+pip freeze > requirements.txt
+Double-check it includes:
+
 fastapi
 
 uvicorn
@@ -40,6 +54,7 @@ requests
 
 joblib
 
+catboost (important!)
 
 
 https://firms.modaps.eosdis.nasa.gov/mapserver/wms-info/

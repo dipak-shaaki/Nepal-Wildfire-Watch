@@ -16,19 +16,16 @@ export default function ConfidenceFireChart() {
           {
             label: 'Fire Confidence Level',
             data: counts,
-            backgroundColor: ['#e74c3c', '#f1c40f', '#2ecc71'],
+            backgroundColor: ['#38bdf8', '#7dd3fc', '#0ea5e9'],
           },
         ],
       });
     });
   }, []);
 
-  if (!chartData) return <p>Loading chart...</p>;
+  if (!chartData) return <p className="text-gray-600 text-sm">Loading...</p>;
 
   return (
-    <div key="confidence-chart" style={{ margin: '20px 0' }}>
-      <h3>Fires by Confidence Level</h3>
-      <Bar data={chartData} />
-    </div>
+    <Bar data={chartData} />
   );
 }

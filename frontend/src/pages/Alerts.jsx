@@ -16,7 +16,7 @@ export default function Alerts() {
 
   const fetchAlerts = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/public/alerts");
+      const { data } = await axios.get("http://localhost:8000/admin/public/alerts");
       setAlerts(data);
     } catch (err) {
       console.error("Fetch alerts error:", err);

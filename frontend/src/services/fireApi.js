@@ -17,3 +17,18 @@ export async function fetchConfidenceFires() {
   return res.json();
 }
 
+export async function fetchTopDistricts() {
+  const res = await fetch(`${API_BASE}/fires/top-districts`);
+  return await res.json();
+}
+
+export async function fetchHeatmap() {
+  const res = await fetch(`${API_BASE}/fires/heatmap`);
+  return await res.json();
+}
+
+export async function fetchGeoSample() {
+  const res = await fetch(`${API_BASE}/fires/geo-sample`);
+  return await res.json();
+}
+

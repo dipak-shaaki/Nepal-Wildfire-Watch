@@ -10,6 +10,9 @@ from services.fire_stats import (
     get_elevation_fire_counts,
     get_yearly_fire_counts,
     get_monthly_fire_counts,
+    get_top_districts,
+    get_year_month_matrix,
+    get_geo_sample,
   
 )
 
@@ -50,3 +53,15 @@ def get_fire_counts_by_elevation():
         return get_elevation_fire_counts()
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+
+@router.get("/fires/top-districts")
+def top_districts():
+    return get_top_districts()
+
+@router.get("/fires/heatmap")
+def year_month_heatmap():
+    return get_year_month_matrix()
+
+@router.get("/fires/geo-sample")
+def fires_geo_sample():
+    return get_geo_sample()

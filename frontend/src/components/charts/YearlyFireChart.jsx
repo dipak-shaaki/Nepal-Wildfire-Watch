@@ -16,7 +16,8 @@ export default function YearlyFireChart() {
       label: 'Fires per Year',
       data: data.map(d => d.count),
       fill: false,
-      borderColor: 'orangered',
+      borderColor: '#0ea5e9',
+      backgroundColor: '#0ea5e9',
       tension: 0.3,
     }],
   };

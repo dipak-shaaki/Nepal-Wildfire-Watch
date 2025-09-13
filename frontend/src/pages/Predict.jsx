@@ -132,122 +132,117 @@ export default function Predict() {
 
   /* ---------- render ---------- */
   return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-orange-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <AlertBanner />
+        <div className="mb-6">
+          <h2 className="text-3xl font-semibold text-gray-900">Check Fire Risk by Location</h2>
+          <p className="text-gray-600">Click on the map to auto-fill environmental data, adjust if needed, then run the prediction.</p>
+        </div>
 
-    
-    <div style={{ padding: 20 }}>
-       <AlertBanner />
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Wildfire Risk Prediction</h2>
-
-      {/* Map */}
-      <MapContainer
-        center={[28.3949, 84.1240]}
-        zoom={7}
-        style={{ height: 400, width: '100%', marginTop: 16 }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; OpenStreetMap contributors"
-        />
-        <LocationMarker onSelect={handleMapClick} />
-      </MapContainer>
-
-      {/* two-column panel */}
-      {location && (
-        <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem' }}>
-          {/* Manual panel */}
-          <div style={{ flex: 1, minWidth: 280 }}>
-            <h3>Manual Parameters</h3>
-            {fieldList.map(({ key, label }) => (
-              <div key={key} style={{ marginBottom: 8 }}>
-                <label style={{ display: 'block', fontSize: '.9rem' }}>{label}:</label>
-                <input
-                  name={key}
-                  type="number"
-                  step="any"
-                  value={params[key]}
-                  onChange={handleInput}
-                  style={{ width: '100%', padding: 6, border: '1px solid #ccc', borderRadius: 4 }}
-                />
-              </div>
-            ))}
-            <button
-              onClick={handlePredict}
-              disabled={predicting}
-              style={{
-                marginTop: 12, padding: '8px 16px',
-                background: '#2563eb', color: '#fff',
-                border: 'none', borderRadius: 4, cursor: 'pointer'
-              }}
+        {/* Map card */}
+        <div className="bg-white rounded-lg shadow p-4">
+          <div className="h-96 rounded overflow-hidden">
+            <MapContainer
+              center={[28.3949, 84.1240]}
+              zoom={7}
+              style={{ height: '100%', width: '100%' }}
             >
-              {predicting ? 'Predicting…' : 'Predict Fire Risk'}
-            </button>
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="&copy; OpenStreetMap contributors"
+              />
+              <LocationMarker onSelect={handleMapClick} />
+            </MapContainer>
           </div>
+        </div>
 
-          {/* Auto summary */}
-          <div style={{ flex: 1 }}>
-            <h3>Auto‑filled Data from Map</h3>
-            <p><strong>Location:</strong> {location.lat.toFixed(4)}, {location.lon.toFixed(4)}</p>
-            {loadingData
-              ? <p>Loading live data…</p>
-              : (
-                <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+        {/* Forms row */}
+        {location && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            {/* Manual parameters */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Manual Parameters</h3>
+              <div className="grid grid-cols-1 gap-3">
+                {fieldList.map(({ key, label }) => (
+                  <div key={key}>
+                    <label className="block text-sm text-gray-700 mb-1">{label}</label>
+                    <input
+                      name={key}
+                      type="number"
+                      step="any"
+                      value={params[key]}
+                      onChange={handleInput}
+                      className="w-full px-3 py-2 border border-gray-300 rounded"
+                    />
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={handlePredict}
+                disabled={predicting}
+                className="mt-4 px-5 py-2 rounded bg-sky-600 text-white hover:bg-sky-700 disabled:opacity-60"
+              >
+                {predicting ? 'Predicting…' : 'Predict Fire Risk'}
+              </button>
+            </div>
+
+            {/* Auto-filled summary */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Auto-filled from Map</h3>
+              <p className="text-sm text-gray-700 mb-3"><span className="font-medium">Location:</span> {location.lat.toFixed(4)}, {location.lon.toFixed(4)}</p>
+              {loadingData ? (
+                <p className="text-gray-600 text-sm">Loading live data…</p>
+              ) : (
+                <ul className="text-sm text-gray-800 space-y-1">
                   {fieldList.map(({ key, label }) => (
-                    <li key={key}><strong>{label}:</strong> {params[key]}</li>
+                    <li key={key}><span className="font-medium">{label}:</span> {params[key]}</li>
                   ))}
                 </ul>
               )}
-            <p style={{ fontSize: '.8rem', color: '#666' }}>
-              Values fetched automatically. You may adjust them on the left.
-            </p>
+              <p className="text-xs text-gray-500 mt-3">Values are fetched automatically. You can fine-tune them on the left.</p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* result + reset button */}
-      {result && (
-        <div
-          style={{
-            marginTop: '2rem',
-            padding: 16,
-            border: '1px solid #ccc',
-            borderRadius: 6,
-            background: '#fafafa'
-          }}
-        >
-          <h3>Prediction Result</h3>
-          <p>
-            <strong>Risk level:</strong>{' '}
-            <span style={{
-              color: result.risk_level === 'High'
-                ? 'darkred' : result.risk_level === 'Moderate'
-                ? 'orange' : 'green',
-              fontWeight: 'bold'
-            }}>
-              {result.risk_level}
-            </span>
-          </p>
-          <p><strong>Model probability:</strong> {result.probability}</p>
-          <p style={{ marginTop: 8 }}><strong>Explanation:</strong> {result.explanation}</p>
+        {/* Result card */}
+        {result && (
+          <div className="bg-white rounded-lg shadow p-6 mt-6">
+            <h3 className="text-lg font-medium text-gray-900">Prediction Result</h3>
+            <div className="mt-2 text-sm text-gray-800">
+              <p>
+                <span className="font-medium">Risk level:</span>{' '}
+                <span className={
+                  result.risk_level === 'High'
+                    ? 'text-red-700 font-semibold'
+                    : result.risk_level === 'Moderate'
+                    ? 'text-amber-600 font-semibold'
+                    : 'text-emerald-600 font-semibold'
+                }>
+                  {result.risk_level}
+                </span>
+              </p>
+              <p className="mt-1"><span className="font-medium">Model probability:</span> {result.probability}</p>
+              <div className="mt-3 p-3 bg-sky-50 border border-sky-100 rounded text-xs text-gray-700">
+                <p className="mb-1"><span className="font-medium">How to interpret:</span> Probability reflects the model’s estimated likelihood of fire given current weather and terrain. Combine with local context before action.</p>
+                <ul className="list-disc pl-4 space-y-0.5">
+                  <li><span className="font-medium">High</span>: take precautions and monitor closely.</li>
+                  <li><span className="font-medium">Moderate</span>: remain alert; avoid open flames.</li>
+                  <li><span className="font-medium">Low</span>: safe conditions but continue best practices.</li>
+                </ul>
+              </div>
+            </div>
+            <button
+              onClick={resetAll}
+              className="mt-4 px-4 py-2 rounded bg-gray-800 text-white hover:bg-gray-900"
+            >
+              Predict another location
+            </button>
+          </div>
+        )}
 
-          {/* reset button */}
-          <button
-            onClick={resetAll}
-            style={{
-              marginTop: 16,
-              padding: '8px 14px',
-              background: '#444',
-              color: '#fff',
-              border: 'none',
-              borderRadius: 4,
-              cursor: 'pointer'
-            }}
-          >
-            Predict another location
-          </button>
-        </div>
-      )}
-
-      {error && <p style={{ marginTop: 16, color: 'red' }}>Error: {error}</p>}
+        {error && <p className="text-red-600 mt-4">Error: {error}</p>}
+      </div>
 
       {/* overlay spinner */}
       {predicting && (

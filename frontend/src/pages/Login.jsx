@@ -72,8 +72,9 @@ export default function Login() {
 
             setMessage("Login successful!");
 
-            // Use the login function from auth context
-            login(data.access_token, data.role);
+            // Use the login function from auth context and pass display name
+            const displayName = (data.user && (data.user.name || data.user.username)) || data.username || data.email || "";
+            login(data.access_token, data.role, displayName);
 
             // Redirect based on role
             setTimeout(() => {

@@ -21,3 +21,13 @@ async def submit_message(data: UserMessage):
 async def get_messages():
     messages = await messages_collection.find().to_list(100)
     return [serialize_message(msg) for msg in messages]
+
+@router.delete("/messages/{message_id}")
+async def delete_message(message_id: str):
+    try:
+        result = await messages_collection.delete_one({"_id": ObjectId(message_id)})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Message not found")
+        return {"message": "Deleted"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to delete message: {str(e)}")

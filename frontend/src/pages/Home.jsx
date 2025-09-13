@@ -74,21 +74,21 @@ function Home() {
             </p>
 
             <p className="text-base text-black leading-relaxed">
-              Coupled with other persistent drivers, like agriculture and logging, this is part of the reason forest loss has remained stubbornly high, despite countries' promises to combat it.
-            </p>
+           Nepal Wildfire Watch is the small step developed for predicting and monitoring the fire,fire risks that are happening in Nepal. </p>
           </div>
         </div>
       </section>
+     
 
       {/* News Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-green-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-green-800 mb-4">
-              Latest News & Updates
+              News Bulletin
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Stay informed about forest fire incidents, prevention efforts, and environmental news from across Nepal.
+              Articles about forest fire incidents, prevention efforts, and environmental news from across Nepal.
             </p>
           </div>
 
@@ -149,10 +149,10 @@ function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-green-800 mb-4">
-              Why Choose Our Platform?
+            Nepal Wildfire Watch 
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Cutting-edge technology combined with local expertise for the most accurate forest fire monitoring in Nepal.
+             
             </p>
           </div>
 
@@ -250,10 +250,10 @@ function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-green-600 to-green-700">
+      {/* <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-green-600 to-green-700">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Get Started?
+          
           </h2>
           <p className="text-xl text-green-100 mb-8">
             Join thousands of users who trust our platform for forest fire monitoring and prediction.
@@ -273,7 +273,7 @@ function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
