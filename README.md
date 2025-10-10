@@ -7,7 +7,6 @@ It provides **real-time wildfire risk prediction and alerting for Nepal**, lever
 
 - Python 3.9+
 - FastAPI, Uvicorn, Requests, Pandas, Joblib, Random forest
-=======
 
 
 ## 📖 Overview
