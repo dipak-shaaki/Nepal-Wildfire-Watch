@@ -28,7 +28,7 @@ function Map() {
         {fires.map((fire, idx) => (
           <Marker key={idx} position={[fire.lat, fire.lng]}>
             <Popup>
-              <strong>🔥 Fire Detected</strong><br />
+              <strong>Fire Detected</strong><br />
               {fire.place}<br />
               ({fire.lat}, {fire.lng})
             </Popup>

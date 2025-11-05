@@ -117,9 +117,9 @@ async def send_report_reply(payload: ReportEmailReply, user=Depends(admin_requir
 try:
     model = joblib.load("model/naive_bayes.pkl")
     scaler = joblib.load("model/naive_bayes_scaler.pkl")
-    print("✅ Naïve Bayes model + scaler loaded")
+    print("Naïve Bayes model + scaler loaded")
 except Exception as e:
-    print(f"❌ Error loading model: {e}")
+    print(f"Error loading model: {e}")
     model, scaler = None, None
 
 # Features for Naive Bayes model (only 4 features as trained)
@@ -319,7 +319,7 @@ async def create_test_alert(alert_data: dict):
     try:
         now = datetime.datetime.utcnow()
         doc = {
-            "title": alert_data.get("title") or "🔥 Forest Fire Alert",
+            "title": alert_data.get("title") or "Forest Fire Alert",
             "message": alert_data.get("message") or "High fire risk detected.",
             "latitude": alert_data.get("latitude"),
             "longitude": alert_data.get("longitude"),

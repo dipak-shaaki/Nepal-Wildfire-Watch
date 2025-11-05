@@ -3,12 +3,6 @@
 Nepal Wildfire Watch is a **MERN (MongoDB, Express, React, Node.js)** web application with **AI/ML integration** via a FastAPI backend.  
 It provides **real-time wildfire risk prediction and alerting for Nepal**, leveraging satellite data, weather APIs, and custom-trained machine learning models.
 
-<<<<<<< HEAD
-## Requirements
-
-- Python 3.9+
-- FastAPI, Uvicorn, Requests, Pandas, Joblib, Random forest
-=======
 ---
 
 ## 📖 Overview
@@ -17,10 +11,9 @@ It provides **real-time wildfire risk prediction and alerting for Nepal**, lever
 - Alerts and safety information for users  
 - Historical statistics & trend analysis  
 
----
+
 
 ## ✨ Features
->>>>>>> 0469cd0 (fixed forest Scan)
 
 ### 1. Homepage
 - Introduction to wildfire risk in Nepal  
@@ -139,15 +132,11 @@ npm run dev
 
 Open in browser: http://localhost:5173
 
-<<<<<<< HEAD
-fastapi
-=======
 📊 Model Training
 
 Refer to:
 
 fire-predict.ipynb
->>>>>>> 0469cd0 (fixed forest Scan)
 
 Fire_Predict_RF.ipynb
 
@@ -157,13 +146,10 @@ random_forest_final_model.pkl
 
 scaler.pkl
 
-<<<<<<< HEAD
-=======
 📂 File Structure
 frontend/   # React app (pages, components, config)
 backend/    # FastAPI app (routes, services, models)
 model/      # ML model files
->>>>>>> 0469cd0 (fixed forest Scan)
 
 🤝 Contributing
 

@@ -48,79 +48,87 @@ export default function ForgotPassword() {
     };
 
     return (
-        <div style={{ maxWidth: 400, margin: "60px auto", padding: 24, background: "#fff", borderRadius: 8, boxShadow: "0 2px 8px #0001" }}>
-            <h2 style={{ textAlign: "center", marginBottom: 20 }}>Forgot Password</h2>
+        <div className="min-h-screen bg-gradient-to-br from-green-50 to-orange-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div style={{ maxWidth: 450, margin: "0 auto", padding: 32, background: "#fff", borderRadius: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
+                <h2 style={{ textAlign: "center", marginBottom: 8, fontSize: "28px", fontWeight: "bold", color: "#166534" }}>Forgot Password</h2>
 
-            <p style={{ textAlign: "center", marginBottom: 20, color: "#666" }}>
-                Enter your email address and we'll send you a password reset OTP.
-            </p>
+                <p style={{ textAlign: "center", marginBottom: 24, color: "#6b7280", fontSize: "14px" }}>
+                    Enter your email address and we'll send you a password reset OTP.
+                </p>
 
-            <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: 20 }}>
-                    <label style={{ display: "block", marginBottom: 8, fontWeight: "bold" }}>
-                        Email Address:
-                    </label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                        required
+                <form onSubmit={handleSubmit}>
+                    <div style={{ marginBottom: 20 }}>
+                        <label style={{ display: "block", marginBottom: 8, fontWeight: "600", color: "#374151" }}>
+                            Email Address:
+                        </label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            required
+                            style={{
+                                width: "100%",
+                                padding: 12,
+                                border: "2px solid #d1d5db",
+                                borderRadius: 8,
+                                outline: "none",
+                                transition: "all 0.2s"
+                            }}
+                            onFocus={(e) => e.target.style.borderColor = "#16a34a"}
+                            onBlur={(e) => e.target.style.borderColor = "#d1d5db"}
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={loading || !email}
                         style={{
                             width: "100%",
-                            padding: 12,
-                            border: "2px solid #ddd",
-                            borderRadius: 4,
-                            outline: "none"
+                            padding: 14,
+                            background: loading || !email ? "#d1d5db" : "linear-gradient(to right, #16a34a, #15803d)",
+                            color: "#fff",
+                            border: "none",
+                            borderRadius: 8,
+                            fontSize: 16,
+                            fontWeight: "600",
+                            cursor: loading || !email ? "not-allowed" : "pointer",
+                            marginBottom: 16,
+                            transition: "all 0.2s"
                         }}
-                    />
+                    >
+                        {loading ? "Sending..." : "Send Reset OTP"}
+                    </button>
+                </form>
+
+                <div style={{ textAlign: "center", marginTop: 20 }}>
+                    <button
+                        onClick={() => navigate("/login")}
+                        style={{
+                            background: "none",
+                            border: "none",
+                            color: "#16a34a",
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                            fontWeight: "500"
+                        }}
+                    >
+                        Back to Login
+                    </button>
                 </div>
 
-                <button
-                    type="submit"
-                    disabled={loading || !email}
-                    style={{
-                        width: "100%",
-                        padding: 12,
-                        background: loading || !email ? "#ccc" : "#2563eb",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: 4,
-                        fontSize: 16,
-                        cursor: loading || !email ? "not-allowed" : "pointer",
-                        marginBottom: 16
-                    }}
-                >
-                    {loading ? "Sending..." : "Send Reset OTP"}
-                </button>
-            </form>
+                {message && (
+                    <div style={{ color: "#16a34a", marginTop: 16, textAlign: "center", padding: 12, background: "#f0fdf4", borderRadius: 8, fontWeight: "500" }}>
+                        {message}
+                    </div>
+                )}
 
-            <div style={{ textAlign: "center", marginTop: 20 }}>
-                <button
-                    onClick={() => navigate("/login")}
-                    style={{
-                        background: "none",
-                        border: "none",
-                        color: "#2563eb",
-                        cursor: "pointer",
-                        textDecoration: "underline"
-                    }}
-                >
-                    Back to Login
-                </button>
+                {error && (
+                    <div style={{ color: "#dc2626", marginTop: 16, textAlign: "center", padding: 12, background: "#fef2f2", borderRadius: 8, fontWeight: "500" }}>
+                        {error}
+                    </div>
+                )}
             </div>
-
-            {message && (
-                <div style={{ color: "green", marginTop: 16, textAlign: "center", padding: 12, background: "#f0f9ff", borderRadius: 4 }}>
-                    {message}
-                </div>
-            )}
-
-            {error && (
-                <div style={{ color: "red", marginTop: 16, textAlign: "center", padding: 12, background: "#fef2f2", borderRadius: 4 }}>
-                    {error}
-                </div>
-            )}
         </div>
     );
 } 

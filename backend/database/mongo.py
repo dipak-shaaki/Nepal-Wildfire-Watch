@@ -17,7 +17,7 @@ try:
     print(" MongoDB connected successfully")
     
 except Exception as e:
-    print(f"❌ MongoDB connection failed: {e}")
+    print(f"MongoDB connection failed: {e}")
     print("Using in-memory storage for testing...")
     
     # Fallback to in-memory storage

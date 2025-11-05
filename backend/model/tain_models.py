@@ -35,5 +35,5 @@ print("Classification Report:\n", classification_report(y_test, y_pred))
 # Save model and scaler
 joblib.dump(model, "model/naive_bayes.pkl")
 joblib.dump(nb_scaler, "model/naive_bayes_scaler.pkl")
-print("✅ Naive Bayes model saved at model/naive_bayes.pkl")
-print("✅ Naive Bayes scaler saved at model/naive_bayes_scaler.pkl")
+print("Naive Bayes model saved at model/naive_bayes.pkl")
+print("Naive Bayes scaler saved at model/naive_bayes_scaler.pkl")

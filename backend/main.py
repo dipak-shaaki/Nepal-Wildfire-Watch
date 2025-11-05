@@ -137,10 +137,28 @@ def predict_manual(data: ManualInput):
 
     if proba >= 0.75:
         risk_level = "High"
+        risk_message = (
+            "High Fire Risk Detected! The environmental conditions are highly favorable for wildfire occurrence. "
+            "We strongly recommend taking immediate precautionary measures: avoid any open flames or outdoor burning, "
+            "ensure fire safety equipment is readily accessible, and monitor local fire advisories closely. "
+            "Stay alert and be prepared to evacuate if authorities issue warnings."
+        )
     elif proba >= 0.40:
         risk_level = "Moderate"
+        risk_message = (
+            "Moderate Fire Risk - Stay Alert! Current weather and terrain conditions suggest an elevated fire risk. "
+            "While not critical, it's important to exercise caution. Avoid lighting fires outdoors, be mindful of activities "
+            "that could generate sparks, and keep emergency contacts handy. Monitor weather updates and be prepared "
+            "to take action if conditions worsen."
+        )
     else:
         risk_level = "Low"
+        risk_message = (
+            "Low Fire Risk - Conditions are Favorable! The current environmental factors indicate a low likelihood of fire occurrence. "
+            "Weather conditions appear safe with adequate humidity and limited fire-promoting factors. However, always practice "
+            "responsible fire safety: properly extinguish any fires, follow local regulations, and remain aware of your surroundings. "
+            "Safe conditions today don't guarantee safety tomorrow - stay informed!"
+        )
 
     confidence = (
         "High confidence" if proba > 0.75 else
@@ -155,11 +173,7 @@ def predict_manual(data: ManualInput):
         "confidence": confidence,
         "probability": float(proba),
         "input": enriched,
-        "risk_message": {
-            "High": "🔥 High fire risk! Take precautions.",
-            "Moderate": "⚠️ Moderate risk: Be alert.",
-            "Low": "✅ Low fire risk. Safe conditions."
-        }[risk_level]
+        "risk_message": risk_message
     }
 
 # ---------------- ADMIN FULL SCAN ---------------- #

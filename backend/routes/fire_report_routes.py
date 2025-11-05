@@ -29,7 +29,7 @@ async def create_fire_report(report: FireReport):
         result = await fire_reports.insert_one(data)
         return {"message": "Fire report submitted", "id": str(result.inserted_id)}
     except Exception as e:
-        print("🔥 Error inserting fire report:", e)
+        print("Error inserting fire report:", e)
         raise HTTPException(status_code=500, detail="Failed to submit fire report")
 
 # ------------------------------------------------------------------

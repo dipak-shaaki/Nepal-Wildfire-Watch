@@ -84,7 +84,7 @@ export default function ManualFirePrediction() {
       {step === 2 && result && (
         <>
           <h2 className="text-xl font-bold mb-4">Step 2: Prediction Result</h2>
-          <p><strong>Prediction:</strong> {result.fire_occurred === 1 ? "🔥 Fire Likely" : "🌿 No Fire Expected"}</p>
+          <p><strong>Prediction:</strong> {result.fire_occurred === 1 ? "Fire Likely" : "No Fire Expected"}</p>
           <p><strong>Risk Level:</strong> {result.risk_level}</p>
           <p className="mt-2"><strong>Explanation:</strong> {result.explanation}</p>
 

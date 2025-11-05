@@ -15,10 +15,7 @@ function PredictionResultCard({ result }) {
       marginTop: "2rem"
     }}>
       <h2>
-        {result.risk_level === "High" && "🔥"}
-        {result.risk_level === "Moderate" && "⚠️"}
-        {result.risk_level === "Low" && "🌲"}
-        {" "}{result.risk_level} RISK
+        {result.risk_level} RISK
       </h2>
       <div style={{ fontSize: "1.5rem" }}>
         Probability: {(result.probability * 100).toFixed(1)}%

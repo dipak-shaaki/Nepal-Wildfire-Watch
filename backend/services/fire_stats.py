@@ -15,7 +15,7 @@ def load_fire_data():
     for path in candidates:
         if os.path.exists(path):
             return pd.read_csv(path)
-    raise FileNotFoundError("🔥 Nepal fire data CSV not found in expected locations.")
+    raise FileNotFoundError("Nepal fire data CSV not found in expected locations.")
 
 def get_yearly_fire_counts():
     df = load_fire_data()

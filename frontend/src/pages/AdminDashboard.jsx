@@ -83,8 +83,8 @@ export default function AdminDashboard() {
 
     try {
       const res = await axios.post("http://localhost:8000/admin/alerts", alertData, {
-  headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` }
-});
+        headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` }
+      });
       setAlerts([...alerts, res.data]);
       setNewAlert({ title: "", message: "" });
       setEditingAlertId(null);
@@ -206,7 +206,7 @@ export default function AdminDashboard() {
   };
 
   // Status helpers
-  
+
 
   // Reply to user messages
   const sendReply = async (email) => {
@@ -350,7 +350,7 @@ export default function AdminDashboard() {
           {scanError && <div style={{ color: "red" }}>{scanError}</div>}
           {highRiskDistricts.length > 0 && (
             <div>
-              <p><strong>🌲 Forest Fire Risk Assessment Complete:</strong> High-risk forest areas detected. Click "Use in Form" on a row to prefill the manual alert form, then publish the alert.</p>
+              <p><strong>Forest Fire Risk Assessment Complete:</strong> High-risk forest areas detected. Click "Use in Form" on a row to prefill the manual alert form, then publish the alert.</p>
               <table style={{ width: "100%", borderCollapse: "collapse" }}>
                 <thead>
                   <tr>
@@ -373,7 +373,7 @@ export default function AdminDashboard() {
                           <div><strong>{d.province}</strong></div>
                           <div style={{ color: "#666" }}>{d.location_details}</div>
                           <div style={{ color: "#888", fontSize: "10px" }}>
-                            📍 {d.latitude?.toFixed(4)}, {d.longitude?.toFixed(4)}
+                            Coordinates: {d.latitude?.toFixed(4)}, {d.longitude?.toFixed(4)}
                           </div>
                         </div>
                       </td>
@@ -391,7 +391,7 @@ export default function AdminDashboard() {
                         </span>
                       </td>
                       <td>
-                        <button onClick={() => prefillFromScan(d)} style={{ padding: "6px 10px", background: "#2563eb", color: "#fff", border: "none", borderRadius: 4, cursor: "pointer" }}>
+                        <button onClick={() => prefillFromScan(d)} style={{ padding: "8px 12px", background: "linear-gradient(to right, #16a34a, #15803d)", color: "#fff", border: "none", borderRadius: 6, cursor: "pointer", fontWeight: "500" }}>
                           Use in Form
                         </button>
                       </td>
@@ -517,15 +517,15 @@ export default function AdminDashboard() {
                   onClick={handleCreate}
                   style={{ marginTop: "8px", padding: "8px 16px", background: "#dc2626", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }}
                 >
-                  🚨 Create Forest Fire Alert
+                  Create Forest Fire Alert
                 </button>
               ) : (
                 <div style={{ display: "flex", gap: 8 }}>
                   <button
                     onClick={saveFormEdit}
-                    style={{ marginTop: "8px", padding: "8px 16px", background: "#2563eb", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }}
+                    style={{ marginTop: "8px", padding: "10px 18px", background: "linear-gradient(to right, #16a34a, #15803d)", color: "white", border: "none", borderRadius: "6px", cursor: "pointer", fontWeight: "500" }}
                   >
-                    💾 Save Changes
+                    Save Changes
                   </button>
                   <button
                     onClick={() => { setEditingAlertId(null); setNewAlert({ title: "", message: "" }); }}
@@ -585,9 +585,9 @@ export default function AdminDashboard() {
                         <div>
                           <strong style={{ fontSize: "16px", color: "#dc2626" }}>{alert.title}</strong>
                           <div style={{ fontSize: "12px", color: "#666", marginTop: "4px" }}>
-                            {alert.forest && <span>🌲 <strong>Forest:</strong> {alert.forest} | </span>}
-                            {alert.district && <span>📍 <strong>District:</strong> {alert.district} | </span>}
-                            {alert.province && <span>🏛️ <strong>Province:</strong> {alert.province} | </span>}
+                            {alert.forest && <span><strong>Forest:</strong> {alert.forest} | </span>}
+                            {alert.district && <span><strong>District:</strong> {alert.district} | </span>}
+                            {alert.province && <span><strong>Province:</strong> {alert.province} | </span>}
                             {alert.risk_level && (
                               <span style={{
                                 padding: "2px 6px",
@@ -602,21 +602,21 @@ export default function AdminDashboard() {
                           </div>
                           {alert.latitude && alert.longitude && (
                             <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>
-                              📍 Coordinates: {alert.latitude.toFixed(4)}, {alert.longitude.toFixed(4)}
+                              Coordinates: {alert.latitude.toFixed(4)}, {alert.longitude.toFixed(4)}
                             </div>
                           )}
                           {alert.weather_data && (
                             <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>
-                              🌡️ Temp: {alert.weather_data.temperature}°C | 💧 Humidity: {alert.weather_data.humidity}%
+                              Temp: {alert.weather_data.temperature}°C | Humidity: {alert.weather_data.humidity}%
                             </div>
                           )}
                         </div>
                         <div>
-                          
+
                           <div style={{ display: "flex", gap: 6 }}>
                             <button
                               onClick={() => startEdit(i)}
-                              style={{ padding: "4px 8px", background: "#2563eb", color: "white", border: "none", borderRadius: "3px", fontSize: "12px", marginRight: "4px" }}
+                              style={{ padding: "6px 10px", background: "linear-gradient(to right, #16a34a, #15803d)", color: "white", border: "none", borderRadius: "4px", fontSize: "12px", marginRight: "4px", fontWeight: "500" }}
                             >
                               Quick Edit
                             </button>
@@ -668,7 +668,7 @@ export default function AdminDashboard() {
                         </div>
                         <div className="flex gap-2">
                           {replyingId !== msg.id && (
-                            <button onClick={() => setReplyingId(msg.id)} className="px-3 py-1 text-sm bg-blue-600 text-white rounded">Reply</button>
+                            <button onClick={() => setReplyingId(msg.id)} className="px-3 py-1 text-sm bg-green-600 text-white rounded font-medium hover:bg-green-700 transition-colors">Reply</button>
                           )}
                           <button onClick={async () => { if (!confirm('Delete this message?')) return; await axios.delete(`http://localhost:8000/messages/${msg.id}`); setMessages((prev) => prev.filter((m) => m.id !== msg.id)); }} className="px-3 py-1 text-sm bg-red-600 text-white rounded">Delete</button>
                         </div>
@@ -774,7 +774,7 @@ export default function AdminDashboard() {
                             </div>
                           </div>
                         ) : (
-                          <button onClick={() => setReplyingId(r.id)} className="px-3 py-1 bg-blue-600 text-white rounded mt-2">Reply to Reporter</button>
+                          <button onClick={() => setReplyingId(r.id)} className="px-3 py-1 bg-green-600 text-white rounded mt-2 font-medium hover:bg-green-700 transition-colors">Reply to Reporter</button>
                         )}
                       </div>
                     </div>

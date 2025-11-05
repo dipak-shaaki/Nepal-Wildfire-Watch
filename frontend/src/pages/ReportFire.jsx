@@ -139,250 +139,279 @@ export default function ReportFire() {
 
   if (submitted) {
     return (
-      <div style={{ maxWidth: 600, margin: "60px auto", padding: 24, background: "#fff", borderRadius: 8, boxShadow: "0 2px 8px #0001", textAlign: "center" }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
-        <h2 style={{ color: "#059669", marginBottom: 16 }}>Report Submitted Successfully!</h2>
-        <p style={{ color: "#666", marginBottom: 24 }}>
-          Thank you for reporting this wildfire. Our admin team will review your report and take appropriate action.
-        </p>
-        <p style={{ color: "#666", fontSize: 14 }}>
-          Redirecting to dashboard...
-        </p>
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-orange-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div style={{ maxWidth: 600, margin: "0 auto", padding: 32, background: "#fff", borderRadius: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.1)", textAlign: "center" }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>✓</div>
+          <h2 style={{ color: "#16a34a", marginBottom: 16, fontSize: "28px", fontWeight: "bold" }}>Report Submitted Successfully!</h2>
+          <p style={{ color: "#6b7280", marginBottom: 24, lineHeight: "1.6" }}>
+            Thank you for reporting this wildfire. Our admin team will review your report and take appropriate action.
+          </p>
+          <p style={{ color: "#6b7280", fontSize: 14 }}>
+            Redirecting to dashboard...
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ maxWidth: 800, margin: "40px auto", padding: 24, background: "#fff", borderRadius: 8, boxShadow: "0 2px 8px #0001" }}>
-      <h2 style={{ textAlign: "center", marginBottom: 20, color: "#dc2626" }}>🚨 Report a Wildfire</h2>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-orange-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: 32, background: "#fff", borderRadius: 12, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
+        <h2 style={{ textAlign: "center", marginBottom: 12, color: "#dc2626", fontSize: "32px", fontWeight: "bold" }}>Report a Wildfire</h2>
 
-      <p style={{ textAlign: "center", marginBottom: 30, color: "#666" }}>
-        If you've spotted a wildfire, please provide the details below. This information will be reviewed by our admin team.
-      </p>
+        <p style={{ textAlign: "center", marginBottom: 32, color: "#6b7280", lineHeight: "1.6" }}>
+          If you've spotted a wildfire, please provide the details below. This information will be reviewed by our admin team.
+        </p>
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
-          <div>
-            <label style={{ display: "block", marginBottom: 8, fontWeight: "bold" }}>
-              Your Name *
+        <form onSubmit={handleSubmit}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+            <div>
+              <label style={{ display: "block", marginBottom: 8, fontWeight: "600", color: "#374151" }}>
+                Your Name *
+              </label>
+              <input
+                name="name"
+                value={form.name}
+                onChange={update}
+                placeholder="Enter your full name"
+                required
+                style={{
+                  width: "100%",
+                  padding: 12,
+                  border: "2px solid #d1d5db",
+                  borderRadius: 8,
+                  outline: "none",
+                  transition: "all 0.2s"
+                }}
+                onFocus={(e) => e.target.style.borderColor = "#16a34a"}
+                onBlur={(e) => e.target.style.borderColor = "#d1d5db"}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: "block", marginBottom: 8, fontWeight: "600", color: "#374151" }}>
+                Email Address *
+              </label>
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={update}
+                placeholder="Enter your email"
+                required
+                style={{
+                  width: "100%",
+                  padding: 12,
+                  border: "2px solid #d1d5db",
+                  borderRadius: 8,
+                  outline: "none",
+                  transition: "all 0.2s"
+                }}
+                onFocus={(e) => e.target.style.borderColor = "#16a34a"}
+                onBlur={(e) => e.target.style.borderColor = "#d1d5db"}
+              />
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+            <div>
+              <label style={{ display: "block", marginBottom: 8, fontWeight: "600", color: "#374151" }}>
+                Province *
+              </label>
+              <select
+                name="province"
+                value={form.province}
+                onChange={update}
+                required
+                style={{
+                  width: "100%",
+                  padding: 12,
+                  border: "2px solid #d1d5db",
+                  borderRadius: 8,
+                  outline: "none",
+                  transition: "all 0.2s"
+                }}
+                onFocus={(e) => e.target.style.borderColor = "#16a34a"}
+                onBlur={(e) => e.target.style.borderColor = "#d1d5db"}
+              >
+                <option value="">Select Province</option>
+                {nepaliProvinces.map(province => (
+                  <option key={province} value={province}>{province}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label style={{ display: "block", marginBottom: 8, fontWeight: "600", color: "#374151" }}>
+                District *
+              </label>
+              <select
+                name="district"
+                value={form.district}
+                onChange={update}
+                required
+                disabled={!form.province}
+                style={{
+                  width: "100%",
+                  padding: 12,
+                  border: "2px solid #d1d5db",
+                  borderRadius: 8,
+                  outline: "none",
+                  opacity: form.province ? 1 : 0.6,
+                  transition: "all 0.2s"
+                }}
+                onFocus={(e) => form.province && (e.target.style.borderColor = "#16a34a")}
+                onBlur={(e) => e.target.style.borderColor = "#d1d5db"}
+              >
+                <option value="">Select District</option>
+                {form.province && nepaliDistricts[form.province]?.map(district => (
+                  <option key={district} value={district}>{district}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ display: "block", marginBottom: 8, fontWeight: "600", color: "#374151" }}>
+              Exact Location / Landmark *
             </label>
             <input
-              name="name"
-              value={form.name}
+              name="location_details"
+              value={form.location_details}
               onChange={update}
-              placeholder="Enter your full name"
+              placeholder="e.g., Near Pashupatinath Temple, Kathmandu"
               required
               style={{
                 width: "100%",
                 padding: 12,
-                border: "2px solid #ddd",
-                borderRadius: 4,
-                outline: "none"
-              }}
-            />
-          </div>
-
-          <div>
-            <label style={{ display: "block", marginBottom: 8, fontWeight: "bold" }}>
-              Email Address *
-            </label>
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={update}
-              placeholder="Enter your email"
-              required
-              style={{
-                width: "100%",
-                padding: 12,
-                border: "2px solid #ddd",
-                borderRadius: 4,
-                outline: "none"
-              }}
-            />
-          </div>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
-          <div>
-            <label style={{ display: "block", marginBottom: 8, fontWeight: "bold" }}>
-              Province *
-            </label>
-            <select
-              name="province"
-              value={form.province}
-              onChange={update}
-              required
-              style={{
-                width: "100%",
-                padding: 12,
-                border: "2px solid #ddd",
-                borderRadius: 4,
-                outline: "none"
-              }}
-            >
-              <option value="">Select Province</option>
-              {nepaliProvinces.map(province => (
-                <option key={province} value={province}>{province}</option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label style={{ display: "block", marginBottom: 8, fontWeight: "bold" }}>
-              District *
-            </label>
-            <select
-              name="district"
-              value={form.district}
-              onChange={update}
-              required
-              disabled={!form.province}
-              style={{
-                width: "100%",
-                padding: 12,
-                border: "2px solid #ddd",
-                borderRadius: 4,
+                border: "2px solid #d1d5db",
+                borderRadius: 8,
                 outline: "none",
-                opacity: form.province ? 1 : 0.6
+                transition: "all 0.2s"
+              }}
+              onFocus={(e) => e.target.style.borderColor = "#16a34a"}
+              onBlur={(e) => e.target.style.borderColor = "#d1d5db"}
+            />
+          </div>
+
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ display: "block", marginBottom: 8, fontWeight: "600", color: "#374151" }}>
+              Date of Fire Incident *
+            </label>
+            <input
+              name="fire_date"
+              type="date"
+              value={form.fire_date}
+              onChange={update}
+              required
+              max={new Date().toISOString().split('T')[0]}
+              style={{
+                width: "100%",
+                padding: 12,
+                border: "2px solid #d1d5db",
+                borderRadius: 8,
+                outline: "none",
+                transition: "all 0.2s"
+              }}
+              onFocus={(e) => e.target.style.borderColor = "#16a34a"}
+              onBlur={(e) => e.target.style.borderColor = "#d1d5db"}
+            />
+          </div>
+
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ display: "block", marginBottom: 8, fontWeight: "600", color: "#374151" }}>
+              Description of the Fire *
+            </label>
+            <textarea
+              name="description"
+              value={form.description}
+              onChange={update}
+              placeholder="Describe what you saw, the size of the fire, any visible damage, etc. (minimum 10 characters)"
+              rows={4}
+              required
+              style={{
+                width: "100%",
+                padding: 12,
+                border: "2px solid #d1d5db",
+                borderRadius: 8,
+                outline: "none",
+                resize: "vertical",
+                transition: "all 0.2s"
+              }}
+              onFocus={(e) => e.target.style.borderColor = "#16a34a"}
+              onBlur={(e) => e.target.style.borderColor = "#d1d5db"}
+            />
+            <div style={{ fontSize: 12, color: "#6b7280", marginTop: 4 }}>
+              {form.description.length}/10 characters minimum
+            </div>
+          </div>
+
+          <div style={{ marginBottom: 20 }}>
+            <h4 style={{ marginBottom: 12, fontWeight: "600", color: "#374151" }}>Optional: Select Location on Map</h4>
+            <p style={{ color: "#6b7280", marginBottom: 12, fontSize: 14, lineHeight: "1.6" }}>
+              Click on the map below to mark the exact location of the fire. This helps emergency responders locate the incident quickly.
+            </p>
+            <MapContainer
+              center={[28.4, 84.1]}
+              zoom={7}
+              style={{ height: 300, borderRadius: 8, border: "2px solid #d1d5db" }}
+            >
+              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+              <LocationSelector onSelect={setLocation} />
+            </MapContainer>
+            {locationSelected && (
+              <div style={{ marginTop: 8, color: "#16a34a", fontSize: 14, fontWeight: "500" }}>
+                Location selected: {form.lat?.toFixed(4)}, {form.lon?.toFixed(4)}
+              </div>
+            )}
+          </div>
+
+          <div style={{ textAlign: "center" }}>
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                background: loading ? "#d1d5db" : "linear-gradient(to right, #dc2626, #b91c1c)",
+                color: "#fff",
+                padding: "14px 32px",
+                border: "none",
+                borderRadius: 8,
+                fontSize: 16,
+                fontWeight: "600",
+                cursor: loading ? "not-allowed" : "pointer",
+                marginRight: 12,
+                transition: "all 0.2s"
               }}
             >
-              <option value="">Select District</option>
-              {form.province && nepaliDistricts[form.province]?.map(district => (
-                <option key={district} value={district}>{district}</option>
-              ))}
-            </select>
+              {loading ? "Submitting..." : "Submit Fire Report"}
+            </button>
+
+            <button
+              type="button"
+              onClick={handleCancel}
+              style={{
+                background: "#6b7280",
+                color: "#fff",
+                padding: "14px 24px",
+                border: "none",
+                borderRadius: 8,
+                fontSize: 16,
+                fontWeight: "600",
+                cursor: "pointer",
+                transition: "all 0.2s"
+              }}
+            >
+              Cancel
+            </button>
           </div>
-        </div>
 
-        <div style={{ marginBottom: 20 }}>
-          <label style={{ display: "block", marginBottom: 8, fontWeight: "bold" }}>
-            Exact Location / Landmark *
-          </label>
-          <input
-            name="location_details"
-            value={form.location_details}
-            onChange={update}
-            placeholder="e.g., Near Pashupatinath Temple, Kathmandu"
-            required
-            style={{
-              width: "100%",
-              padding: 12,
-              border: "2px solid #ddd",
-              borderRadius: 4,
-              outline: "none"
-            }}
-          />
-        </div>
-
-        <div style={{ marginBottom: 20 }}>
-          <label style={{ display: "block", marginBottom: 8, fontWeight: "bold" }}>
-            Date of Fire Incident *
-          </label>
-          <input
-            name="fire_date"
-            type="date"
-            value={form.fire_date}
-            onChange={update}
-            required
-            max={new Date().toISOString().split('T')[0]}
-            style={{
-              width: "100%",
-              padding: 12,
-              border: "2px solid #ddd",
-              borderRadius: 4,
-              outline: "none"
-            }}
-          />
-        </div>
-
-        <div style={{ marginBottom: 20 }}>
-          <label style={{ display: "block", marginBottom: 8, fontWeight: "bold" }}>
-            Description of the Fire *
-          </label>
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={update}
-            placeholder="Describe what you saw, the size of the fire, any visible damage, etc. (minimum 10 characters)"
-            rows={4}
-            required
-            style={{
-              width: "100%",
-              padding: 12,
-              border: "2px solid #ddd",
-              borderRadius: 4,
-              outline: "none",
-              resize: "vertical"
-            }}
-          />
-          <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>
-            {form.description.length}/10 characters minimum
-          </div>
-        </div>
-
-        <div style={{ marginBottom: 20 }}>
-          <h4 style={{ marginBottom: 12 }}>📍 Optional: Select Location on Map</h4>
-          <p style={{ color: "#666", marginBottom: 12, fontSize: 14 }}>
-            Click on the map below to mark the exact location of the fire. This helps emergency responders locate the incident quickly.
-          </p>
-          <MapContainer
-            center={[28.4, 84.1]}
-            zoom={7}
-            style={{ height: 300, borderRadius: 8, border: "2px solid #ddd" }}
-          >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <LocationSelector onSelect={setLocation} />
-          </MapContainer>
-          {locationSelected && (
-            <div style={{ marginTop: 8, color: "#059669", fontSize: 14 }}>
-              ✅ Location selected: {form.lat?.toFixed(4)}, {form.lon?.toFixed(4)}
+          {error && (
+            <div style={{ color: "#dc2626", marginTop: 16, textAlign: "center", padding: 12, background: "#fef2f2", borderRadius: 8, fontWeight: "500" }}>
+              {error}
             </div>
           )}
-        </div>
-
-        <div style={{ textAlign: "center" }}>
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              background: loading ? "#ccc" : "#dc2626",
-              color: "#fff",
-              padding: "12px 32px",
-              border: "none",
-              borderRadius: 4,
-              fontSize: 16,
-              cursor: loading ? "not-allowed" : "pointer",
-              marginRight: 12
-            }}
-          >
-            {loading ? "Submitting..." : "Submit Fire Report"}
-          </button>
-
-          <button
-            type="button"
-            onClick={handleCancel}
-            style={{
-              background: "#6b7280",
-              color: "#fff",
-              padding: "12px 24px",
-              border: "none",
-              borderRadius: 4,
-              fontSize: 16,
-              cursor: "pointer"
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-
-        {error && (
-          <div style={{ color: "red", marginTop: 16, textAlign: "center", padding: 12, background: "#fef2f2", borderRadius: 4 }}>
-            {error}
-          </div>
-        )}
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

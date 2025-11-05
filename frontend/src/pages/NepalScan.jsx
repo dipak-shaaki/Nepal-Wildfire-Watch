@@ -60,7 +60,7 @@ export default function NepalScan() {
     try {
       const token = localStorage.getItem("adminToken");
       const alerts = selectedDistricts.map(district => ({
-        title: `🔥 Fire Alert: ${district.district}`,
+        title: `Fire Alert: ${district.district}`,
         message: `High fire risk detected in ${district.district} district.`,
         district: district.district,
         latitude: district.latitude,
@@ -68,7 +68,7 @@ export default function NepalScan() {
         risk_level: district.fire_risk,
         probability: district.probability,
         weather_data: district.weather_data,
-        precautions: `⚠️ High fire risk in ${district.district}. Please avoid open flames, smoking, and any activities that could spark a fire. Monitor local weather conditions and follow emergency instructions.`,
+        precautions: `High fire risk in ${district.district}. Please avoid open flames, smoking, and any activities that could spark a fire. Monitor local weather conditions and follow emergency instructions.`,
         expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
       }));
 
@@ -109,7 +109,7 @@ export default function NepalScan() {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-red-800">🔥 Nepal Fire Risk Scan</h1>
+        <h1 className="text-3xl font-bold text-red-800">Nepal Fire Risk Scan</h1>
         <button
           onClick={handleLogout}
           className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
@@ -134,7 +134,7 @@ export default function NepalScan() {
               : "bg-red-600 hover:bg-red-700"
           } text-white`}
         >
-          {scanning ? "🔍 Scanning Nepal..." : "🚀 Run Full Nepal Scan"}
+          {scanning ? "Scanning Nepal..." : "Run Full Nepal Scan"}
         </button>
       </div>
 
@@ -154,7 +154,7 @@ export default function NepalScan() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* High Risk Districts */}
           <div className="bg-white shadow-lg rounded-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">🔥 High Risk Districts</h3>
+            <h3 className="text-xl font-semibold mb-4">High Risk Districts</h3>
             <p className="text-gray-600 mb-4">
               Found {scanResults.high_risk_districts.length} districts with moderate to high fire risk
             </p>
@@ -185,14 +185,14 @@ export default function NepalScan() {
                         </span>
                       </div>
                       <div className="mt-2 text-sm text-gray-600">
-                        <div>🌡️ {district.weather_data.temperature}°C</div>
-                        <div>💧 {district.weather_data.humidity}% humidity</div>
-                        <div>💨 {district.weather_data.wind_speed} km/h wind</div>
-                        <div>🌧️ {district.weather_data.precipitation} mm rain</div>
+                        <div>Temp: {district.weather_data.temperature}°C</div>
+                        <div>Humidity: {district.weather_data.humidity}%</div>
+                        <div>Wind: {district.weather_data.wind_speed} km/h</div>
+                        <div>Precipitation: {district.weather_data.precipitation} mm</div>
                       </div>
                     </div>
                     <div className="text-2xl">
-                      {selectedDistricts.find(d => d.district === district.district) ? "✅" : "⬜"}
+                      {selectedDistricts.find(d => d.district === district.district) ? "[X]" : "[ ]"}
                     </div>
                   </div>
                 </div>
@@ -212,7 +212,7 @@ export default function NepalScan() {
                 >
                   {creatingAlerts 
                     ? "Creating Alerts..." 
-                    : `🚨 Create Alerts for ${selectedDistricts.length} Districts`
+                    : `Create Alerts for ${selectedDistricts.length} Districts`
                   }
                 </button>
               </div>
@@ -221,7 +221,7 @@ export default function NepalScan() {
 
           {/* Map View */}
           <div className="bg-white shadow-lg rounded-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">🗺️ Risk Map</h3>
+            <h3 className="text-xl font-semibold mb-4">Risk Map</h3>
             <div className="h-96 rounded-lg overflow-hidden">
               <MapContainer
                 center={[28.4, 84.1]}
@@ -250,9 +250,9 @@ export default function NepalScan() {
                           {(district.probability * 100).toFixed(1)}% fire probability
                         </p>
                         <p className="text-xs text-gray-600 mt-1">
-                          🌡️ {district.weather_data.temperature}°C | 
-                          💧 {district.weather_data.humidity}% | 
-                          💨 {district.weather_data.wind_speed} km/h
+                          Temp: {district.weather_data.temperature}°C | 
+                          Humidity: {district.weather_data.humidity}% | 
+                          Wind: {district.weather_data.wind_speed} km/h
                         </p>
                       </div>
                     </Popup>
@@ -267,7 +267,7 @@ export default function NepalScan() {
       {/* Scan Statistics */}
       {scanResults && (
         <div className="bg-white shadow-lg rounded-lg p-6 mt-6">
-          <h3 className="text-xl font-semibold mb-4">📊 Scan Statistics</h3>
+          <h3 className="text-xl font-semibold mb-4">Scan Statistics</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-blue-50 rounded-lg">
               <div className="text-2xl font-bold text-blue-600">

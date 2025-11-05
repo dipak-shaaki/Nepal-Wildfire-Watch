@@ -9,7 +9,7 @@ async def ensure_admin_exists():
     existing = await db["users"].find_one({"email": admin_email})
 
     if not existing:
-        hashed = pwd_context.hash("example")  # Choose a strong password
+        hashed = pwd_context.hash("example")  
         await db["users"].insert_one({
             "email": admin_email,
             "password": hashed,

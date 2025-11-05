@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 @import "leaflet/dist/leaflet.css";
 @tailwind base;
 @tailwind components;
@@ -6,11 +6,47 @@
 
 @layer base {
     html {
-        font-family: 'Open Sans', sans-serif;
+        font-family: 'Poppins', sans-serif;
     }
 
     body {
-        font-family: 'Open Sans', sans-serif;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+    }
+
+    /* Heading font weights */
+    h1 {
+        font-weight: 700;
+    }
+
+    h2 {
+        font-weight: 600;
+    }
+
+    h3 {
+        font-weight: 600;
+    }
+
+    h4 {
+        font-weight: 500;
+    }
+
+    h5 {
+        font-weight: 500;
+    }
+
+    h6 {
+        font-weight: 500;
+    }
+
+    /* Button and strong text */
+    button {
+        font-weight: 500;
+    }
+
+    strong,
+    b {
+        font-weight: 600;
     }
 }
 

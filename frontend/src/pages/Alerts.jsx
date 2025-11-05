@@ -67,7 +67,7 @@ export default function Alerts() {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-red-800">🚨 Fire Alerts</h1>
+        <h1 className="text-3xl font-bold text-red-800">Fire Alerts</h1>
         <div className="flex gap-4">
           <select
             value={filterStatus}
@@ -83,7 +83,7 @@ export default function Alerts() {
             onClick={() => setShowMap(!showMap)}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
-            {showMap ? "📋 Show List" : "🗺️ Show Map"}
+            {showMap ? "Show List" : "Show Map"}
           </button>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function Alerts() {
       {showMap ? (
         /* Map View */
         <div className="bg-white shadow-lg rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">🗺️ Alerts Map</h2>
+          <h2 className="text-xl font-semibold mb-4">Alerts Map</h2>
           <div className="h-96 rounded-lg overflow-hidden">
             <MapContainer
               center={[28.4, 84.1]}
@@ -157,7 +157,7 @@ export default function Alerts() {
                       </div>
                       <p className="text-sm mb-2">{alert.message}</p>
                       <div className="bg-yellow-50 p-2 rounded text-xs">
-                        <strong>⚠️ Precautions:</strong> {alert.precautions}
+                        <strong>Precautions:</strong> {alert.precautions}
                       </div>
                       <p className="text-xs text-gray-500 mt-2">
                         Created: {formatDate(alert.created_at)}
@@ -173,12 +173,12 @@ export default function Alerts() {
         /* List View */
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4">
-            📋 {filterStatus === "all" ? "All" : filterStatus.charAt(0).toUpperCase() + filterStatus.slice(1)} Alerts
+            {filterStatus === "all" ? "All" : filterStatus.charAt(0).toUpperCase() + filterStatus.slice(1)} Alerts
           </h2>
 
           {filteredAlerts.length === 0 ? (
             <div className="text-center py-8">
-              <div className="text-4xl mb-4">🚨</div>
+              <div className="text-4xl mb-4">!</div>
               <p className="text-gray-600">
                 {filterStatus === "active"
                   ? "No active alerts at the moment. Stay safe!"
@@ -214,15 +214,15 @@ export default function Alerts() {
                   <p className="text-gray-700 mb-3">{alert.message}</p>
 
                   <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-3">
-                    <h4 className="font-medium text-sm mb-2">⚠️ Safety Precautions:</h4>
+                    <h4 className="font-medium text-sm mb-2">Safety Precautions:</h4>
                     <p className="text-sm text-gray-700">{alert.precautions}</p>
                   </div>
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600 mb-3">
-                    <div>🌡️ {alert.weather_data?.temperature}°C</div>
-                    <div>💧 {alert.weather_data?.humidity}% humidity</div>
-                    <div>💨 {alert.weather_data?.wind_speed} km/h wind</div>
-                    <div>📊 {(alert.probability * 100).toFixed(1)}% fire risk</div>
+                    <div>Temp: {alert.weather_data?.temperature}°C</div>
+                    <div>Humidity: {alert.weather_data?.humidity}%</div>
+                    <div>Wind: {alert.weather_data?.wind_speed} km/h</div>
+                    <div>Risk: {(alert.probability * 100).toFixed(1)}%</div>
                   </div>
 
                   <div className="text-xs text-gray-500">
@@ -237,7 +237,7 @@ export default function Alerts() {
 
       {/* Safety Information */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mt-6">
-        <h3 className="text-lg font-semibold text-blue-800 mb-3">🛡️ Fire Safety Tips</h3>
+        <h3 className="text-lg font-semibold text-blue-800 mb-3">Fire Safety Tips</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-700">
           <div>
             <h4 className="font-medium mb-2">During High Fire Risk:</h4>
