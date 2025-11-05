@@ -259,6 +259,84 @@ export default function Alerts() {
           </div>
         </div>
       </div>
+
+      {/* Comprehensive Fire Safety Guidelines Section */}
+      <section className="py-12 px-6 bg-gradient-to-br from-green-50 to-orange-50 rounded-lg mt-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Fire Safety Guidelines
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Follow these essential safety tips to prevent forest fires and protect our environment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Never Leave Fires Unattended
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Always completely extinguish campfires and ensure no embers remain burning before leaving the area.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Create Firebreaks
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Clear vegetation around your property to create defensible space and prevent fire spread.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Report Immediately
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Report any signs of forest fire immediately to authorities. Early detection saves forests and lives.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Avoid Open Burning in Dry Season
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Refrain from burning agricultural waste or lighting fires outdoors during dry, windy conditions.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Keep Emergency Kit Ready
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Maintain an emergency evacuation kit with water, first aid supplies, and important documents.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Know Evacuation Routes
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Familiarize yourself with local evacuation routes and have a family emergency plan in place.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg inline-block">
+              <p className="text-red-800 font-semibold text-lg">
+                Remember: Prevention is better than cure. Together we can protect Nepal's forests!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 } 
