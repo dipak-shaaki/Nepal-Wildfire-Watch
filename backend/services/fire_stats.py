@@ -19,14 +19,8 @@ def load_fire_data():
 
 def get_yearly_fire_counts():
     df = load_fire_data()
-    
-    # Convert 'acq_date' to datetime
     df['acq_date'] = pd.to_datetime(df['acq_date'], errors='coerce')
-
-    # Extract year
     df['year'] = df['acq_date'].dt.year
-
-    # Group and count by year
     yearly_counts = df.groupby('year').size().reset_index(name='count')
 
     return yearly_counts.to_dict(orient='records')
@@ -59,16 +53,6 @@ def get_elevation_fire_counts():
     result = df.groupby('elevation_bin').size().reset_index(name='count')
 
     return result.to_dict(orient='records')
-
-
-def get_top_districts(limit: int = 15):
-    df = load_fire_data()
-    district_col = 'district' if 'district' in df.columns else None
-    if not district_col:
-        return []
-    counts = df.groupby(district_col).size().reset_index(name='count')
-    counts = counts.sort_values('count', ascending=False).head(limit)
-    return counts.rename(columns={district_col: 'district'}).to_dict(orient='records')
 
 
 def get_year_month_matrix():
@@ -120,3 +104,24 @@ def get_geo_sample(limit: int = 3000):
     if "acq_date" in df_small.columns:
         df_small["acq_date"] = pd.to_datetime(df_small["acq_date"], errors="coerce").dt.strftime("%Y-%m-%d")
     return df_small.to_dict(orient="records")
+
+# Added function: top districts by fire count
+def get_top_districts(n: int = 10):
+    """
+    Return top n districts by number of fire incidents.
+    Looks for common district column names and returns error if not found.
+    """
+    df = load_fire_data()
+    district_col = None
+    for c in ["district", "District", "district_name", "admin1", "province_district", "DISTRICT"]:
+        if c in df.columns:
+            district_col = c
+            break
+    if not district_col:
+        return {"error": "District column not found in data."}
+
+    top = df[district_col].fillna("Unknown").value_counts().head(n).reset_index()
+    top.columns = [district_col, "count"]
+    # normalize column name to 'district' in result
+    top = top.rename(columns={district_col: "district"})
+    return top.to_dict(orient="records")

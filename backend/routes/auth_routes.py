@@ -88,7 +88,7 @@ async def register_user(user: UserRegisterRequest):
         raise HTTPException(400, "An account with this NID already exists.")
     
     # Generate 6-digit OTP
-    otp = str(secrets.randbelow(900000) + 100000)  # 6-digit number
+    otp = str(secrets.randbelow(900000) + 100000)  
     
     user_dict = {
         "email": user.email.lower(),  # Store email in lowercase
@@ -106,8 +106,8 @@ async def register_user(user: UserRegisterRequest):
     await db["users"].insert_one(user_dict)
     
     # Send OTP email
-    sender = os.getenv("SMTP_SENDER")
-    password = os.getenv("SMTP_PASSWORD")
+    sender = os.getenv("SMTP_SENDER") or ""
+    password = os.getenv("SMTP_PASSWORD") or ""
     subject = "Email Verification OTP - Nepal WildFire Watch"
     message = f"Hello {user.username},\n\nYour email verification OTP is: {otp}\n\nEnter this OTP to verify your email address.\n\nIf you did not register, ignore this email.\n\nThis OTP will expire in 10 minutes."
     try:
@@ -174,8 +174,8 @@ async def resend_otp(payload: ResendOTPRequest):
     )
     
     # Send new OTP email
-    sender = os.getenv("SMTP_SENDER")
-    password = os.getenv("SMTP_PASSWORD")
+    sender = os.getenv("SMTP_SENDER") or ""
+    password = os.getenv("SMTP_PASSWORD") or ""
     subject = "New Email Verification OTP - Nepal WildFire Watch"
     message = f"Hello {user['username']},\n\nYour new email verification OTP is: {otp}\n\nEnter this OTP to verify your email address.\n\nThis OTP will expire in 10 minutes."
     try:
@@ -202,23 +202,39 @@ async def login_user(data: UserLoginRequest, Authorize: AuthJWT = Depends()):
             {"username": data.identifier}
         ]})
         
-        if not user:
+        if user:
+            if not verify_password(data.password, user["password"]):
+                raise HTTPException(status_code=401, detail="Invalid credentials")
+            
+            # Check if user is verified (only for normal users, not admin)
+            if user["role"] == "user" and not user.get("is_verified", False):
+                raise HTTPException(status_code=403, detail="Please verify your email. Check your email for the verification link.")
+            
+            # Create JWT token for user
+            token = Authorize.create_access_token(subject=user["email"], user_claims={
+                "role": user["role"],
+                "is_approved": user.get("is_approved", True) 
+            })
+            
+            return {
+                "access_token": token, 
+                "role": user["role"],
+                "username": user.get("username", user["email"].split("@")[0]),
+                "email": user["email"]
+            }
+        
+        # Fallback: Admin login via /login
+        admin = await admins_collection.find_one({"email": data.identifier})
+        if not admin or not verify_password(data.password, admin["password"]):
             raise HTTPException(status_code=401, detail="Invalid credentials")
         
-        if not verify_password(data.password, user["password"]):
-            raise HTTPException(status_code=401, detail="Invalid credentials")
-        
-        # Check if user is verified (only for normal users, not admin)
-        if user["role"] == "user" and not user.get("is_verified", False):
-            raise HTTPException(status_code=403, detail="Please verify your email before logging in. Check your email for the verification link.")
-        
-        # Create JWT token
-        token = Authorize.create_access_token(subject=user["email"], user_claims={
-            "role": user["role"],
-            "is_approved": user.get("is_approved", True) # Reflects actual status or defaults to True if not present
-        })
-        
-        return {"access_token": token, "role": user["role"]}
+        token = Authorize.create_access_token(subject=admin["email"], user_claims={"role": "admin", "is_approved": True})
+        return {
+            "access_token": token,
+            "role": "admin",
+            "username": admin["email"].split("@")[0],
+            "email": admin["email"]
+        }
     
     except HTTPException:
         # Re-raise HTTP exceptions as-is
@@ -236,7 +252,12 @@ async def admin_login(form: OAuth2PasswordRequestForm = Depends(), Authorize: Au
     if not admin or not bcrypt.verify(password, admin["password"]):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     token = Authorize.create_access_token(subject=email, user_claims={"role": "admin", "is_approved": True})
-    return {"access_token": token}
+    return {
+        "access_token": token,
+        "role": "admin",
+        "username": email.split("@")[0],  # Use email prefix as username
+        "email": email
+    }
 
 # Forgot Password with OTP
 @router.post("/forgot-password")
@@ -256,8 +277,8 @@ async def forgot_password(payload: ForgotPasswordRequest):
     )
     
     # Send reset OTP email
-    sender = os.getenv("SMTP_SENDER")
-    password = os.getenv("SMTP_PASSWORD")
+    sender = os.getenv("SMTP_SENDER") or ""
+    password = os.getenv("SMTP_PASSWORD") or ""
     subject = "Password Reset OTP - Nepal WildFire Watch"
     message = f"Hello {user['username']},\n\nYour password reset OTP is: {reset_otp}\n\nEnter this OTP to reset your password.\n\nIf you did not request this, ignore this email.\n\nThis OTP will expire in 10 minutes."
     try:

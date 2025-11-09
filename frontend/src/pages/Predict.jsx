@@ -53,6 +53,10 @@ export default function Predict() {
   const [predicting, setPredicting] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
+  const allFilled = fieldList.every(({ key }) => {
+    const val = params[key];
+    return val !== '' && !isNaN(parseFloat(val));
+  });
 
   /* -------- live fetch on map click -------- */
   const handleMapClick = async (lat, lon) => {
@@ -104,6 +108,12 @@ export default function Predict() {
 
   /* ---------- prediction request ---------- */
   const handlePredict = async () => {
+    // Validate all required fields
+    const missing = fieldList.filter(({ key }) => params[key] === '' || isNaN(parseFloat(params[key])));
+    if (missing.length > 0) {
+      setError('Please fill all input parameters before predicting.');
+      return;
+    }
     const lat = parseFloat(params.latitude);
     const lon = parseFloat(params.longitude);
 
@@ -196,7 +206,7 @@ export default function Predict() {
             </div>
             <button
               onClick={handlePredict}
-              disabled={predicting}
+              disabled={predicting || !allFilled}
               className="mt-4 w-full px-5 py-3 rounded-lg bg-gradient-to-r from-green-600 to-green-700 text-white font-medium hover:from-green-700 hover:to-green-800 disabled:opacity-60 transition-all"
             >
               {predicting ? 'Predicting...' : 'Predict Fire Risk'}

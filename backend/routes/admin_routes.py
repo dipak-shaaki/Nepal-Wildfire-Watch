@@ -210,7 +210,7 @@ def get_simulated_weather_data(lat, lng):
     }
 
 # --------------------------------------------------
-# Scan Nepal (AUTO-CREATE ALERTS)
+# Scan Nepal 
 # --------------------------------------------------
 @router.post("/scan-nepal")
 async def scan_nepal_fire_risk(user=Depends(admin_required)):
