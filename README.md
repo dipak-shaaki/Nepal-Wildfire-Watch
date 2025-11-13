@@ -185,14 +185,14 @@ latitude, longitude, temperature, humidity, wind_speed, precipitation, elevation
 ##  Installation
 
 ### 1. Clone Repository
-`ash
+```bash
 git clone https://github.com/dipak-shaaki/Forest_Fire_Prediction.git
 cd Forest_Fire_Prediction
 `
 
 ### 2. Backend Setup
 
-`ash
+```bash
 cd backend
 python -m venv venv
 
@@ -214,14 +214,14 @@ OPENWEATHERMAP_API_KEY=your_api_key_here
 `
 
 Start the backend server:
-`ash
+```bash
 uvicorn main:app --reload
 `
 Backend will run on: `http://localhost:8000`
 
 ### 3. Frontend Setup
 
-`ash
+```bash
 cd frontend
 npm install
 npm run dev
@@ -336,14 +336,14 @@ Forest_Fire_Prediction/
 ##  Deployment
 
 ### Frontend Deployment (Vercel)
-`ash
+```bash
 npm run build
 # Deploy to Vercel via CLI or GitHub integration
 `
 **Live Frontend:** https://forest-fire-prediction-otpw.vercel.app/
 
 ### Backend Deployment (Render)
-`ash
+```bash
 # Deploy via Render with environment variables configured
 `
 **Live Backend:** https://forest-fire-prediction-kym9.onrender.com/
@@ -374,13 +374,13 @@ ALLOWED_ORIGINS=http://localhost:5173,https://your-domain.com
 ##  Testing
 
 ### Run Backend Tests
-`ash
+```bash
 cd backend
 pytest tests/
 `
 
 ### Run Frontend Tests
-`ash
+```bash
 cd frontend
 npm test
 `
