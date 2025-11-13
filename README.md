@@ -1,4 +1,4 @@
-﻿# Nepal Wildfire Watch 
+﻿﻿﻿# Nepal Wildfire Watch 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
@@ -23,6 +23,47 @@ Nepal Wildfire Watch is a **full-stack web application** with **AI/ML integratio
 - [Deployment](#-deployment)
 - [Contributing](#-contributing)
 - [License](#-license)
+
+---
+
+
+
+### Homepage
+**Introduction to wildfire risk in Nepal • News bulletin & informational content**
+
+![Homepage](./screenshots/Homepage.png)
+
+---
+
+### Live Map
+**Real-time fire hotspot visualization (NASA FIRMS API) • Interactive map of Nepal showing ongoing fires • Selectable time window (current / past 7 days)**
+
+![Live Map](./screenshots/live_map.png)
+
+---
+
+### Predict
+**Interactive map for selecting any location in Nepal • Automatic fetching of weather & elevation data • Manual parameter adjustment (temperature, humidity, wind speed, etc.) • Fire risk prediction using Random Forest model • Results display: risk level + model probability**
+
+![Predict](./screenshots/predict.png)
+
+---
+
+### Statistics
+**Historical fire statistics & trends • Yearly & monthly fire counts • Detection confidence bands • Top districts by fire count • Geographic distribution of fire incidents**
+
+---
+
+###  Alerts
+**Public alerts issued by admins • Safety tips & emergency contacts**
+
+
+---
+
+### Contact
+**User contact form • FAQs & support information**
+
+![Contact](./screenshots/contact.png)
 
 ---
 
@@ -396,4 +437,3 @@ For issues, questions, or suggestions:
 ---
 
 **Last Updated:** November 2025  
-**Status:**  Active Development
