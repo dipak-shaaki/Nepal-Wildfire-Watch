@@ -36,12 +36,20 @@ export default function Login() {
             });
 
             setMessage(data.message);
-            // Store email for OTP verification
-            localStorage.setItem("pendingVerificationEmail", formData.email);
-
-            // Redirect to OTP verification page
+            
+            // Clear form and switch to login
+            setFormData({
+                email: "",
+                username: "",
+                nid: "",
+                password: "",
+                identifier: "",
+            });
+            
+            // Switch to login form after 2 seconds
             setTimeout(() => {
-                navigate("/verify-otp");
+                setIsSignup(false);
+                setMessage("Registration successful! Please log in.");
             }, 2000);
 
         } catch (err) {
@@ -73,7 +81,6 @@ export default function Login() {
 
             setMessage("Login successful!");
 
-            // Use the login function from auth context and pass username
             const displayName = data.username || data.email?.split('@')[0] || "User";
             login(data.access_token, data.role, displayName);
 

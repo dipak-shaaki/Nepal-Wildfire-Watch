@@ -11,7 +11,7 @@ export default function LiveFireMapPage() {
       <div className="max-w-6xl mx-auto">
         <AlertBanner />
         <div className="mb-6">
-          <h2 className="text-3xl font-semibold text-gray-900">Live Fire Hotspots in Nepal</h2>
+          <h2 className="text-3xl font-semibold text-gray-900">Live Fire Hotspots around Nepal</h2>
           <p className="text-gray-600">Choose a satellite sensor and time window to explore real-time detections.</p>
         </div>
 

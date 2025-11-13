@@ -9,9 +9,7 @@ class User(BaseModel):
     password: str
     role: str = "user"
     is_approved: bool = False
-    is_verified: bool = False
-    # Fields used in auth_routes for OTP flows
-    otp: Optional[str] = None
-    otp_created_at: Optional[datetime] = None
+    is_verified: bool = True  # Auto-verified on registration
+    # Fields used for password reset
     reset_otp: Optional[str] = None
     reset_otp_created_at: Optional[datetime] = None

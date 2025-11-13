@@ -1,4 +1,4 @@
-// src/pages/Predict.jsx
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
@@ -126,6 +126,7 @@ export default function Predict() {
     setError('');
     setResult(null);
     try {
+      //  CREATE PAYLOAD - Convert form data to numbers
       const payload = {
         latitude: +params.latitude,
         longitude: +params.longitude,
@@ -137,7 +138,7 @@ export default function Predict() {
         vpd: +params.vpd,
       };
       const { data } = await axios.post('http://127.0.0.1:8000/predict-manual', payload);
-      setResult(data);
+      setResult(data); //for storing data in state // data = {fire_occurred, risk_level, probability, risk_message, ...}
     } catch (err) {
       console.error(err);
       setError('Prediction failed.');
@@ -160,7 +161,7 @@ export default function Predict() {
       <div className="max-w-6xl mx-auto">
         <AlertBanner />
         <div className="mb-6">
-          <h2 className="text-3xl font-semibold text-gray-900">Check Fire Risk by Location</h2>
+          <h2 className="text-3xl font-semibold text-gray-900">Check Fire Risk</h2>
           <p className="text-gray-600">Enter parameters manually or click on the map to auto-fill environmental data.</p>
         </div>
 

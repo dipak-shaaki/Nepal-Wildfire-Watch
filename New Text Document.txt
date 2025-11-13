@@ -1,0 +1,15 @@
+D:\Final_sem_\Forest_Fire_Prediction\.venv\Scripts\python.exe -m pip uninstall uvicorn -y; D:\Final_sem_\Forest_Fire_Prediction\.venv\Scripts\python.exe -m pip install uvicorn
+
+
+
+cd D:\Final_sem_\Forest_Fire_Prediction; Remove-Item -Recurse -Force .venv
+
+
+python -m venv .venv
+
+
+
+.\.venv\Scripts\Activate.ps1; pip install -r requirements.txt
+
+
+D:\Final_sem_\Forest_Fire_Prediction\backend; D:\Final_sem_\Forest_Fire_Prediction\.venv\Scripts\python.exe -m uvicorn main:app --reload

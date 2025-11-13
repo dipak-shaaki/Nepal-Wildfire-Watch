@@ -1,7 +1,11 @@
+import React from 'react';
 
-import { Navigate } from 'react-router-dom';
-
-export default function RequireAdmin({ children }) {
-  const token = localStorage.getItem("adminToken");
-  return token ? children : <Navigate to="/login" />;
+// This component is currently not used
+// Sensor chart functionality is in src/pages/SensorStackChart.jsx
+export default function SensorStackChart() {
+  return (
+    <div>
+      <p>Sensor Stack Chart Component</p>
+    </div>
+  );
 }

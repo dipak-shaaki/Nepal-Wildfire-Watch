@@ -12,5 +12,5 @@ motor
 passlib
 bcrypt<4.0.0
 scikit-learn==1.6.1
-jwt
+PyJWT==1.7.1
 #  pip install -r ../requirements.txt                                            

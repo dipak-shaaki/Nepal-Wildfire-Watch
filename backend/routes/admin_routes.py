@@ -122,13 +122,13 @@ except Exception as e:
     print(f"Error loading model: {e}")
     model, scaler = None, None
 
-# Features for Naive Bayes model (only 4 features as trained)
+# Features for Naive Bayes model 
 nb_features = [
     'temperature', 'humidity', 'rainfall', 'wind_speed'
 ]
 
 # --------------------------------------------------
-# Nepal Districts (keep full list in your file)
+# Nepal Districts 
 # --------------------------------------------------
 NEPAL_DISTRICTS = [
     {"forest": "Makwanpur Forest", "district": "Makwanpur", "province": "Bagmati", "location_details": "Central Nepal", "lat": 27.4167, "lng": 85.0333, "elevation": 467},

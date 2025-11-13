@@ -1,4 +1,4 @@
-// In PredictionResultCard.jsx
+
 const riskColors = {
   High: "#ff4d4f",      // Red
   Moderate: "#faad14",  // Orange

@@ -20,6 +20,7 @@ export default function NepalScan() {
     setSelectedDistricts([]);
 
     try {
+      //get  admin token from localstorage
       const token = localStorage.getItem("adminToken");
       const { data } = await axios.post(
         "http://localhost:8000/scan-nepal",

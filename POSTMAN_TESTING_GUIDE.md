@@ -261,7 +261,7 @@ OR
     "elevation": 1400.0,
     "vpd": 2.345
   },
-  "risk_message": "🔥 High fire risk! Take precautions."
+  "risk_message": "High fire risk! Take precautions."
 }
 ```
 
@@ -1018,5 +1018,4 @@ pm.request.headers.add({
 
 ---
 
-**Happy Testing! 🔥🌲**
 

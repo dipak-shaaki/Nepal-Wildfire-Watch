@@ -71,7 +71,7 @@ async def debug_user_status(email: str, user_role: str = Depends(admin_required)
         "has_verification_token": "verification_token" in user and user["verification_token"] is not None
     }
 
-# User Registration with OTP
+# User Registration
 @router.post("/register")
 async def register_user(user: UserRegisterRequest):
     # Check for duplicate email (case-insensitive)
@@ -87,9 +87,6 @@ async def register_user(user: UserRegisterRequest):
     if await db["users"].find_one({"nid": user.nid}):
         raise HTTPException(400, "An account with this NID already exists.")
     
-    # Generate 6-digit OTP
-    otp = str(secrets.randbelow(900000) + 100000)  
-    
     user_dict = {
         "email": user.email.lower(),  # Store email in lowercase
         "username": user.username,
@@ -98,33 +95,16 @@ async def register_user(user: UserRegisterRequest):
         "role": "user",
         "is_approved": False,
         "reset_token": None,
-        "is_verified": False,
-        "otp": otp,
-        "otp_created_at": datetime.datetime.utcnow(),
+        "is_verified": True,  # Auto-verify user on registration
         "created_at": datetime.datetime.utcnow()
     }
     await db["users"].insert_one(user_dict)
     
-    # Send OTP email
-    sender = os.getenv("SMTP_SENDER") or ""
-    password = os.getenv("SMTP_PASSWORD") or ""
-    subject = "Email Verification OTP - Nepal WildFire Watch"
-    message = f"Hello {user.username},\n\nYour email verification OTP is: {otp}\n\nEnter this OTP to verify your email address.\n\nIf you did not register, ignore this email.\n\nThis OTP will expire in 10 minutes."
-    try:
-        msg = MIMEText(message)
-        msg['Subject'] = subject
-        msg['From'] = sender
-        msg['To'] = user.email
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-            server.login(sender, password)
-            server.send_message(msg)
-    except Exception as e:
-        print("Failed to send OTP email:", e)
-        # Remove the user if email fails
-        await db["users"].delete_one({"email": user.email.lower()})
-        raise HTTPException(500, "Failed to send verification email. Please try again.")
-    
-    return {"message": "Registration successful. Please check your email for the OTP to verify your account.", "email": user.email}
+    return {
+        "message": "Registration successful! You can now log .",
+        "email": user.email,
+        "username": user.username
+    }
 
 # OTP Verification Endpoint
 @router.post("/verify-otp")
@@ -205,10 +185,6 @@ async def login_user(data: UserLoginRequest, Authorize: AuthJWT = Depends()):
         if user:
             if not verify_password(data.password, user["password"]):
                 raise HTTPException(status_code=401, detail="Invalid credentials")
-            
-            # Check if user is verified (only for normal users, not admin)
-            if user["role"] == "user" and not user.get("is_verified", False):
-                raise HTTPException(status_code=403, detail="Please verify your email. Check your email for the verification link.")
             
             # Create JWT token for user
             token = Authorize.create_access_token(subject=user["email"], user_claims={

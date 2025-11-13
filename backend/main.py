@@ -8,7 +8,7 @@ import math
 from dotenv import load_dotenv
 import os
 from fastapi_jwt_auth import AuthJWT
-from routes import fire,contact_routes, fire_report_routes, fire_routes, admin_routes, test_mongo, auth_routes
+from routes import contact_routes, fire_report_routes, fire_routes, admin_routes, auth_routes
 from models.admin import ensure_admin_exists
 import numpy as np
 import sys
@@ -34,11 +34,9 @@ app.add_middleware(
 # Include additional route files
 app.include_router(fire_routes.router)
 app.include_router(admin_routes.router)
-app.include_router(test_mongo.router)  
 app.include_router(auth_routes.router)
 app.include_router(contact_routes.router)
-app.include_router(fire_report_routes.router) 
-app.include_router(fire.router)
+app.include_router(fire_report_routes.router)
 
 # ---------------- MODEL LOADING ---------------- #
 rf_model = None
@@ -48,7 +46,7 @@ nb_model = None
 try:
     rf_model = joblib.load("./model/random_forest_final_model.pkl")
     scaler = joblib.load("./model/scaler.pkl")
-    print(" Random Forest model and scaler loaded.")
+    print(" Random Forest model loaded.")
 except Exception as e:
     print(f"[ERROR] Could not load RandomForest or scaler: {e}")
 
@@ -94,7 +92,7 @@ async def init_app():
 @app.post("/predict-manual")
 def predict_manual(data: ManualInput):
     if rf_model is None or scaler is None:
-        raise HTTPException(status_code=500, detail="Model or scaler not loaded")
+        raise HTTPException(status_code=500, detail="Model not loaded")
 
     # Calculate VPD
     try:
@@ -152,7 +150,7 @@ def predict_manual(data: ManualInput):
 
     confidence = (
         "High confidence" if proba > 0.75 else
-        "Moderate confidence" if proba > 0.50 else
+        "Moderate confidence" if proba > 0.40 else
         "Low confidence" if proba > 0.25 else
         "Very low confidence"
     )
