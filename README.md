@@ -52,14 +52,12 @@ Nepal Wildfire Watch is a **full-stack web application** with **AI/ML integratio
 ### Statistics
 **Historical fire statistics & trends • Yearly & monthly fire counts • Detection confidence bands • Top districts by fire count • Geographic distribution of fire incidents**
 
-![Statistics](./screenshots/statistics.png)
 
 ---
 
 ### Alerts
 **Public alerts issued by admins • Safety tips & emergency contacts**
 
-![Alerts](./screenshots/alerts.png)
 
 ---
 
