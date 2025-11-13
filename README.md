@@ -1,4 +1,4 @@
-﻿﻿﻿# Nepal Wildfire Watch 
+﻿﻿# Nepal Wildfire Watch 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
@@ -10,12 +10,12 @@ Nepal Wildfire Watch is a **full-stack web application** with **AI/ML integratio
 
 ---
 
-##  Table of Contents
+## 📑 Table of Contents
 
+- [Screenshots](#-screenshots)
 - [Features](#-features)
 - [Technology Stack](#-technology-stack)
 - [Installation](#-installation)
-- [Usage](#-usage)
 - [API Documentation](#-api-endpoints)
 - [Model Training](#-model-training)
 - [Project Structure](#-project-structure)
@@ -26,7 +26,7 @@ Nepal Wildfire Watch is a **full-stack web application** with **AI/ML integratio
 
 ---
 
-
+## 📸 Screenshots
 
 ### Homepage
 **Introduction to wildfire risk in Nepal • News bulletin & informational content**
@@ -52,11 +52,14 @@ Nepal Wildfire Watch is a **full-stack web application** with **AI/ML integratio
 ### Statistics
 **Historical fire statistics & trends • Yearly & monthly fire counts • Detection confidence bands • Top districts by fire count • Geographic distribution of fire incidents**
 
+![Statistics](./screenshots/statistics.png)
+
 ---
 
-###  Alerts
+### Alerts
 **Public alerts issued by admins • Safety tips & emergency contacts**
 
+![Alerts](./screenshots/alerts.png)
 
 ---
 
@@ -67,18 +70,18 @@ Nepal Wildfire Watch is a **full-stack web application** with **AI/ML integratio
 
 ---
 
-##  Features
+## ✨ Features
 
-###  Homepage
+### 🏠 Homepage
 - Introduction to wildfire risk in Nepal  
 - News bulletin & informational content  
 
-###  Live Map
+### 🗺️ Live Map
 - Real-time fire hotspot visualization (NASA FIRMS API)  
 - Selectable time window (current / past 7 days)  
 - Interactive map of Nepal showing ongoing fires  
 
-###  Predict
+### 🔮 Predict
 - Interactive map for selecting any location in Nepal  
 - Automatic fetching of weather & elevation data  
 - Manual parameter adjustment:  
@@ -86,22 +89,22 @@ Nepal Wildfire Watch is a **full-stack web application** with **AI/ML integratio
 - Fire risk prediction using a **Random Forest model trained from scratch**  
 - Results display: **risk level + model probability**  
 
-###  Statistics
+### 📊 Statistics
 - Historical fire statistics & trends  
 - Yearly & monthly fire counts  
 - Detection confidence bands  
 - Top districts by fire count  
 - Geographic distribution of fire incidents  
 
-###  Contact
+### 📞 Contact
 - User contact form  
 - FAQs & support information  
 
-###  Alerts
+### 🚨 Alerts
 - Public alerts issued by admins  
 - Safety tips & emergency contacts  
 
-###  Authentication & Authorization
+### 🔐 Authentication & Authorization
 - User registration & login  
 - Role-based dashboards (Admin & User)  
 - OTP verification, password reset  
@@ -109,31 +112,31 @@ Nepal Wildfire Watch is a **full-stack web application** with **AI/ML integratio
 
 ---
 
-##  Roles & Permissions
+## 👥 Roles & Permissions
 
-###  Admin
+### 👑 Admin
 - View/respond to user messages & fire reports  
 - Mark alerts as resolved  
 - Run full forest scans using **Naive Bayes** model  
 - Auto-create alerts for high-risk forests  
 - Manage alerts (CRUD), contact forms, and fire reports  
 
-###  Registered User
+### 👤 Registered User
 - Submit wildfire reports  
 - Access prediction, live map, stats, contact, and alerts  
 
-###  Visitor
+### 👀 Visitor
 - Access prediction, live map, stats, contact, and alerts  
 - Cannot submit fire reports  
 
 ---
 
-##  Prediction System
+## 🤖 Prediction System
 
-**Input Parameters:**  
-`
+**Input Parameters:**
+```
 latitude, longitude, temperature, humidity, wind_speed, precipitation, elevation, VPD
-`
+```
 
 **Models:**
 - **Random Forest** (Custom implementation for prediction)
@@ -149,7 +152,7 @@ latitude, longitude, temperature, humidity, wind_speed, precipitation, elevation
 
 ---
 
-##  Technology Stack
+## 🛠️ Technology Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -162,7 +165,7 @@ latitude, longitude, temperature, humidity, wind_speed, precipitation, elevation
 
 ---
 
-##  Requirements
+## 📋 Requirements
 
 ### Backend
 - Python 3.9+
@@ -182,13 +185,13 @@ latitude, longitude, temperature, humidity, wind_speed, precipitation, elevation
 
 ---
 
-##  Installation
+## 🚀 Installation
 
 ### 1. Clone Repository
 ```bash
 git clone https://github.com/dipak-shaaki/Forest_Fire_Prediction.git
 cd Forest_Fire_Prediction
-`
+```
 
 ### 2. Backend Setup
 
@@ -204,19 +207,19 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-`
+```
 
 Create a `.env` file in the `backend/` directory:
-`env
+```env
 MONGODB_URI=your_mongodb_connection_string
 SECRET_KEY=your_secret_key_here
 OPENWEATHERMAP_API_KEY=your_api_key_here
-`
+```
 
 Start the backend server:
 ```bash
 uvicorn main:app --reload
-`
+```
 Backend will run on: `http://localhost:8000`
 
 ### 3. Frontend Setup
@@ -225,22 +228,22 @@ Backend will run on: `http://localhost:8000`
 cd frontend
 npm install
 npm run dev
-`
+```
 Frontend will run on: `http://localhost:5173`
 
 ### 4. Access Application
 
 Open your browser and navigate to:
-`
+```
 http://localhost:5173
-`
+```
 
 ---
 
-##  API Endpoints
+## 🔌 API Endpoints
 
 ### Public Endpoints
-`http
+```http
 GET  /                          # API status
 POST /predict-manual            # Predict fire risk (manual input)
 GET  /fires                     # Real-time fire hotspots
@@ -249,10 +252,10 @@ GET  /fires/monthly             # Monthly fire statistics
 GET  /fires/confidence          # Confidence levels
 POST /contact                   # Submit contact form
 GET  /alerts                    # Get public alerts
-`
+```
 
 ### Admin Endpoints (Protected)
-`http
+```http
 POST /admin/alerts              # Create/manage alerts (CRUD)
 GET  /admin/alerts              # Get all alerts
 PUT  /admin/alerts/{id}         # Update alert
@@ -260,19 +263,19 @@ DELETE /admin/alerts/{id}       # Delete alert
 GET  /scan-forests              # Full forest scan (Naive Bayes)
 GET  /admin/reports             # View fire reports
 POST /admin/reports/{id}/resolve # Mark report as resolved
-`
+```
 
 ### Authentication Endpoints
-`http
+```http
 POST /auth/register             # User registration
 POST /auth/login                # User login
 POST /auth/verify-otp           # OTP verification
 POST /auth/reset-password       # Password reset
-`
+```
 
 ---
 
-##  Model Training
+## 🧠 Model Training
 
 Pre-trained models are included in the repository. To retrain:
 
@@ -289,7 +292,7 @@ Pre-trained models are included in the repository. To retrain:
 
 ---
 
-##  Project Structure
+## 📁 Project Structure
 
 ```
 Forest_Fire_Prediction/
@@ -333,29 +336,29 @@ Forest_Fire_Prediction/
 
 ---
 
-##  Deployment
+## 🌐 Deployment
 
 ### Frontend Deployment (Vercel)
 ```bash
 npm run build
 # Deploy to Vercel via CLI or GitHub integration
-`
+```
 **Live Frontend:** https://forest-fire-prediction-otpw.vercel.app/
 
 ### Backend Deployment (Render)
 ```bash
 # Deploy via Render with environment variables configured
-`
+```
 **Live Backend:** https://forest-fire-prediction-kym9.onrender.com/
 
 ---
 
-##  Configuration
+## ⚙️ Configuration
 
 ### Environment Variables
 
 **Backend `.env`:**
-`env
+```env
 # Database
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/dbname
 
@@ -367,27 +370,27 @@ OPENWEATHERMAP_API_KEY=your_openweathermap_api_key
 
 # CORS
 ALLOWED_ORIGINS=http://localhost:5173,https://your-domain.com
-`
+```
 
 ---
 
-##  Testing
+## 🧪 Testing
 
 ### Run Backend Tests
 ```bash
 cd backend
 pytest tests/
-`
+```
 
 ### Run Frontend Tests
 ```bash
 cd frontend
 npm test
-`
+```
 
 ---
 
-##  Contributing
+## 🤝 Contributing
 
 We welcome contributions! Here's how to get started:
 
@@ -405,20 +408,20 @@ We welcome contributions! Here's how to get started:
 
 ---
 
-##  License
+## 📄 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-##  Authors
+## 👨‍💻 Authors
 
 **Dipak Shaaki**
 - GitHub: [@dipak-shaaki](https://github.com/dipak-shaaki)
 
 ---
 
-##  Support & Questions
+## 💬 Support & Questions
 
 For issues, questions, or suggestions:
 - Open an [Issue](https://github.com/dipak-shaaki/Forest_Fire_Prediction/issues)
@@ -426,7 +429,7 @@ For issues, questions, or suggestions:
 
 ---
 
-##  Acknowledgments
+## 🙏 Acknowledgments
 
 - **NASA FIRMS** for satellite fire data
 - **OpenWeatherMap** for weather data
@@ -436,4 +439,4 @@ For issues, questions, or suggestions:
 
 ---
 
-**Last Updated:** November 2025  
+**Last Updated:** November 2025
