@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
 
 export default function AlertsManagement() {
   const [alerts, setAlerts] = useState([]);
@@ -28,7 +29,7 @@ export default function AlertsManagement() {
     setLoading(true);
     setError("");
     try {
-      const { data } = await axios.get("http://localhost:8000/admin/alerts", {
+      const { data } = await axios.get(`${API_BASE_URL}/admin/alerts`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },
       });
       setAlerts(data);
@@ -69,7 +70,7 @@ export default function AlertsManagement() {
           precipitation: 0,
         },
       };
-      const { data } = await axios.post("http://localhost:8000/admin/alerts", payload, {
+      const { data } = await axios.post(`${API_BASE_URL}/admin/alerts`, payload, {
         headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },
       });
       setAlerts([data, ...alerts]);
@@ -82,7 +83,7 @@ export default function AlertsManagement() {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this alert?")) return;
     try {
-      await axios.delete(`http://localhost:8000/admin/alerts/${id}`, {
+      await axios.delete(`${API_BASE_URL}/admin/alerts/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },
       });
       setAlerts(alerts.filter((a) => a.id !== id));

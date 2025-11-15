@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import API_BASE_URL from "../config";
 import {
   fetchAlerts,
   createAlert,
@@ -40,19 +41,19 @@ export default function AdminDashboard() {
   }, []);
 
   const loadAlerts = () =>
-    axios.get("http://localhost:8000/admin/public/alerts")
+    axios.get(`${API_BASE_URL}/admin/public/alerts`)
       .then((res) => setAlerts(res.data))
       .catch(console.error);
 
   const loadMessages = () =>
     axios
-      .get("http://localhost:8000/messages")
+      .get(`${API_BASE_URL}/messages`)
       .then((res) => setMessages(res.data))
       .catch(console.error);
 
   const loadReports = () =>
     axios
-      .get("http://localhost:8000/reports")
+      .get(`${API_BASE_URL}/reports`)
       .then((res) => setReports(res.data))
       .catch(console.error);
 
@@ -82,7 +83,7 @@ export default function AdminDashboard() {
     };
 
     try {
-      const res = await axios.post("http://localhost:8000/admin/alerts", alertData, {
+      const res = await axios.post(`${API_BASE_URL}/admin/alerts`, alertData, {
         headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` }
       });
       setAlerts([...alerts, res.data]);
@@ -98,7 +99,7 @@ export default function AdminDashboard() {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this alert?")) return;
     try {
-      await axios.delete(`http://localhost:8000/admin/alerts/${id}`, {
+      await axios.delete(`${API_BASE_URL}/admin/alerts/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` }
       });
       setAlerts(alerts.filter((a) => a.id !== id));
@@ -119,7 +120,7 @@ export default function AdminDashboard() {
 
   const saveEdit = async (id) => {
     try {
-      const res = await axios.put(`http://localhost:8000/admin/alerts/${id}`, {
+      const res = await axios.put(`${API_BASE_URL}/admin/alerts/${id}`, {
         title: editedAlert.title,
         message: editedAlert.message,
       }, {
@@ -175,7 +176,7 @@ export default function AdminDashboard() {
           precipitation: 0,
         },
       };
-      const res = await axios.put(`http://localhost:8000/admin/alerts/${editingAlertId}`, payload, {
+      const res = await axios.put(`${API_BASE_URL}/admin/alerts/${editingAlertId}`, payload, {
         headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` }
       });
       setAlerts((prev) => prev.map((a) => (a.id === editingAlertId ? res.data : a)));

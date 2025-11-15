@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -28,7 +29,7 @@ export default function Contact() {
     setError('');
 
     try {
-      await axios.post('http://localhost:8000/contact', form);
+      await axios.post(`${API_BASE_URL}/contact`, form);
       setSent(true);
       setForm({ name: '', email: '', subject: '', message: '' });
     } catch {

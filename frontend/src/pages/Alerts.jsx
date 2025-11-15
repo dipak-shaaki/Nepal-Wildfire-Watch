@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -16,7 +17,7 @@ export default function Alerts() {
 
   const fetchAlerts = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/admin/public/alerts");
+      const { data } = await axios.get(`${API_BASE_URL}/admin/public/alerts`);
       setAlerts(data);
     } catch (err) {
       console.error("Fetch alerts error:", err);

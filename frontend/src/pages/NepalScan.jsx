@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
 import { useAuth } from "../context/AuthContext";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -23,7 +24,7 @@ export default function NepalScan() {
       //get  admin token from localstorage
       const token = localStorage.getItem("adminToken");
       const { data } = await axios.post(
-        "http://localhost:8000/scan-nepal",
+        `${API_BASE_URL}/scan-nepal`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -74,7 +75,7 @@ export default function NepalScan() {
       }));
 
       const { data } = await axios.post(
-        "http://localhost:8000/alerts/bulk",
+        `${API_BASE_URL}/alerts/bulk`,
         alerts,
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -83,7 +84,7 @@ export default function NepalScan() {
 
       setAlertMessage(`Successfully created ${data.created_alerts.length} alerts!`);
       setSelectedDistricts([]);
-      
+
       // Clear message after 5 seconds
       setTimeout(() => setAlertMessage(""), 5000);
     } catch (err) {
@@ -122,18 +123,17 @@ export default function NepalScan() {
       <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Full Nepal Fire Risk Assessment</h2>
         <p className="text-gray-600 mb-4">
-          Run a comprehensive scan of all Nepal districts to identify high-risk fire areas. 
+          Run a comprehensive scan of all Nepal districts to identify high-risk fire areas.
           This will analyze weather conditions, elevation, and historical data to predict fire risk.
         </p>
-        
+
         <button
           onClick={handleScan}
           disabled={scanning}
-          className={`px-6 py-3 rounded-lg font-semibold ${
-            scanning 
-              ? "bg-gray-400 cursor-not-allowed" 
-              : "bg-red-600 hover:bg-red-700"
-          } text-white`}
+          className={`px-6 py-3 rounded-lg font-semibold ${scanning
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-red-600 hover:bg-red-700"
+            } text-white`}
         >
           {scanning ? "Scanning Nepal..." : "Run Full Nepal Scan"}
         </button>
@@ -159,23 +159,22 @@ export default function NepalScan() {
             <p className="text-gray-600 mb-4">
               Found {scanResults.high_risk_districts.length} districts with moderate to high fire risk
             </p>
-            
+
             <div className="space-y-3 max-h-96 overflow-y-auto">
               {scanResults.high_risk_districts.map((district, index) => (
                 <div
                   key={district.district}
-                  className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-                    selectedDistricts.find(d => d.district === district.district)
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-200 hover:border-gray-300"
-                  }`}
+                  className={`p-4 border rounded-lg cursor-pointer transition-colors ${selectedDistricts.find(d => d.district === district.district)
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-200 hover:border-gray-300"
+                    }`}
                   onClick={() => handleDistrictSelect(district)}
                 >
                   <div className="flex justify-between items-start">
                     <div>
                       <h4 className="font-semibold text-lg">{district.district}</h4>
                       <div className="flex items-center gap-4 mt-2">
-                        <span 
+                        <span
                           className="px-2 py-1 rounded text-sm font-medium text-white"
                           style={{ backgroundColor: getRiskColor(district.fire_risk) }}
                         >
@@ -205,14 +204,13 @@ export default function NepalScan() {
                 <button
                   onClick={handleCreateAlerts}
                   disabled={creatingAlerts}
-                  className={`w-full px-4 py-3 rounded-lg font-semibold ${
-                    creatingAlerts 
-                      ? "bg-gray-400 cursor-not-allowed" 
-                      : "bg-green-600 hover:bg-green-700"
-                  } text-white`}
+                  className={`w-full px-4 py-3 rounded-lg font-semibold ${creatingAlerts
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-green-600 hover:bg-green-700"
+                    } text-white`}
                 >
-                  {creatingAlerts 
-                    ? "Creating Alerts..." 
+                  {creatingAlerts
+                    ? "Creating Alerts..."
                     : `Create Alerts for ${selectedDistricts.length} Districts`
                   }
                 </button>
@@ -230,7 +228,7 @@ export default function NepalScan() {
                 style={{ height: "100%", width: "100%" }}
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                
+
                 {scanResults.high_risk_districts.map((district) => (
                   <Marker
                     key={district.district}
@@ -240,7 +238,7 @@ export default function NepalScan() {
                       <div>
                         <h4 className="font-semibold">{district.district}</h4>
                         <p className="text-sm">
-                          <span 
+                          <span
                             className="px-2 py-1 rounded text-xs text-white"
                             style={{ backgroundColor: getRiskColor(district.fire_risk) }}
                           >
@@ -251,8 +249,8 @@ export default function NepalScan() {
                           {(district.probability * 100).toFixed(1)}% fire probability
                         </p>
                         <p className="text-xs text-gray-600 mt-1">
-                          Temp: {district.weather_data.temperature}°C | 
-                          Humidity: {district.weather_data.humidity}% | 
+                          Temp: {district.weather_data.temperature}°C |
+                          Humidity: {district.weather_data.humidity}% |
                           Wind: {district.weather_data.wind_speed} km/h
                         </p>
                       </div>

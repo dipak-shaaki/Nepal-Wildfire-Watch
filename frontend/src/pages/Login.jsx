@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import API_BASE_URL from "../config";
 
 export default function Login() {
     const [isSignup, setIsSignup] = useState(false);
@@ -28,7 +29,7 @@ export default function Login() {
         setMessage("");
 
         try {
-            const { data } = await axios.post("http://localhost:8000/register", {
+            const { data } = await axios.post(`${API_BASE_URL}/register`, {
                 email: formData.email,
                 username: formData.username,
                 nid: formData.nid,
@@ -36,7 +37,7 @@ export default function Login() {
             });
 
             setMessage(data.message);
-            
+
             // Clear form and switch to login
             setFormData({
                 email: "",
@@ -45,7 +46,7 @@ export default function Login() {
                 password: "",
                 identifier: "",
             });
-            
+
             // Switch to login form after 2 seconds
             setTimeout(() => {
                 setIsSignup(false);
@@ -74,7 +75,7 @@ export default function Login() {
         setMessage("");
 
         try {
-            const { data } = await axios.post("http://localhost:8000/login", {
+            const { data } = await axios.post(`${API_BASE_URL}/login`, {
                 identifier: formData.identifier,
                 password: formData.password,
             });

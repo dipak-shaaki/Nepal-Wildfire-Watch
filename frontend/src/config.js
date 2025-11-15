@@ -1,4 +1,8 @@
 
-// const API_BASE_URL = "http://127.0.0.1:8000";
+// API Base URL Configuration - Used across the entire application
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-// export default API_BASE_URL;
+export default API_BASE_URL;
+
+// Export as named export as well for flexibility
+export { API_BASE_URL };

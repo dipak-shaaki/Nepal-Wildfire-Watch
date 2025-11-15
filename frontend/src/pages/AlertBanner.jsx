@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 export default function AlertBanner() {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/admin/public/alerts')
+    axios.get(`${API_BASE_URL}/admin/public/alerts`)
       .then((res) => {
         setAlerts(res.data);
       })

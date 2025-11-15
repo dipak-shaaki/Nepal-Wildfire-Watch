@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
 
 export default function ManualFirePrediction() {
   const [step, setStep] = useState(1);
@@ -29,7 +30,7 @@ export default function ManualFirePrediction() {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.post("http://localhost:8000/predict-manual", formData);
+      const response = await axios.post(`${API_BASE_URL}/predict-manual`, formData);
       setResult(response.data);
       setStep(2);
     } catch (err) {

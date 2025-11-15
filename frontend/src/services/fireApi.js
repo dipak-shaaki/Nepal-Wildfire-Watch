@@ -1,6 +1,7 @@
 
 
-const API_BASE = 'http://localhost:8000'; 
+// Use environment variable or fallback to localhost
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export async function fetchYearlyFires() {
   const res = await fetch(`${API_BASE}/fires/yearly`);
@@ -13,7 +14,7 @@ export async function fetchMonthlyFires() {
 }
 
 export async function fetchConfidenceFires() {
-  const res = await fetch("http://localhost:8000/fires/confidence");
+  const res = await fetch(`${API_BASE}/fires/confidence`);
   return res.json();
 }
 
