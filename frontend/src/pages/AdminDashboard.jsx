@@ -214,7 +214,7 @@ export default function AdminDashboard() {
     if (!replySubject || !replyBody) return alert("Fill subject & body");
     try {
       await axios.post(
-        "http://localhost:8000/admin/reply",
+        `${API_BASE_URL}/admin/reply`,
         {
           to_email: email,
           subject: replySubject,
@@ -239,7 +239,7 @@ export default function AdminDashboard() {
   // Update report resolution status
   const handleResolve = async (id, newStatus) => {
     try {
-      await axios.put(`http://localhost:8000/reports/${id}/resolve`, {
+      await axios.put(`${API_BASE_URL}/reports/${id}/resolve`, {
         resolved: newStatus,
       });
       setReports((prev) =>
@@ -258,7 +258,7 @@ export default function AdminDashboard() {
     setHighRiskDistricts([]);
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/admin/test-scan-nepal",
+        `${API_BASE_URL}/admin/test-scan-nepal`,
         {}
       );
       setHighRiskDistricts(data.high_risk_districts || []);
@@ -671,7 +671,7 @@ export default function AdminDashboard() {
                           {replyingId !== msg.id && (
                             <button onClick={() => setReplyingId(msg.id)} className="px-3 py-1 text-sm bg-green-600 text-white rounded font-medium hover:bg-green-700 transition-colors">Reply</button>
                           )}
-                          <button onClick={async () => { if (!confirm('Delete this message?')) return; await axios.delete(`http://localhost:8000/messages/${msg.id}`); setMessages((prev) => prev.filter((m) => m.id !== msg.id)); }} className="px-3 py-1 text-sm bg-red-600 text-white rounded">Delete</button>
+                          <button onClick={async () => { if (!confirm('Delete this message?')) return; await axios.delete(`${API_BASE_URL}/messages/${msg.id}`); setMessages((prev) => prev.filter((m) => m.id !== msg.id)); }} className="px-3 py-1 text-sm bg-red-600 text-white rounded">Delete</button>
                         </div>
                       </div>
                       <p className="text-gray-700 mt-3">{msg.message}</p>
@@ -735,7 +735,7 @@ export default function AdminDashboard() {
                           </button>
                           {r.resolved && (
                             <button
-                              onClick={async () => { if (!confirm('Delete this resolved report?')) return; await axios.delete(`http://localhost:8000/reports/${r.id}`); setReports((prev) => prev.filter((x) => x.id !== r.id)); }}
+                              onClick={async () => { if (!confirm('Delete this resolved report?')) return; await axios.delete(`${API_BASE_URL}/reports/${r.id}`); setReports((prev) => prev.filter((x) => x.id !== r.id)); }}
                               className="px-3 py-1 rounded text-white text-sm bg-red-600"
                             >
                               Delete

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import AlertBanner from "./AlertBanner";
 import axios from "axios";
+import API_BASE_URL from "../config";
 
 export default function UserDashboard() {
     const { logout, userName } = useAuth();
@@ -19,7 +20,7 @@ export default function UserDashboard() {
     useEffect(() => {
         const load = async () => {
             try {
-                const { data } = await axios.get("http://localhost:8000/admin/public/alerts");
+                const { data } = await axios.get(`${API_BASE_URL}/admin/public/alerts`);
                 setAlerts(data || []);
             } catch (e) {
                 setError("Unable to load alerts right now.");

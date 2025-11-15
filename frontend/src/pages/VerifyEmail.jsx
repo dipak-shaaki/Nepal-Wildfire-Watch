@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import API_BASE_URL from '../config';
 
 export default function VerifyEmail() {
     const [message, setMessage] = useState("Verifying...");
@@ -9,7 +10,7 @@ export default function VerifyEmail() {
         const email = params.get("email");
         if (token && email) {
             axios
-                .get(`http://localhost:8000/verify-email?token=${token}&email=${email}`)
+                .get(`${API_BASE_URL}/verify-email?token=${token}&email=${email}`)
                 .then((res) => setMessage(res.data.message || "Email verified!"))
                 .catch((err) =>
                     setMessage(

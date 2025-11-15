@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function OTPVerification() {
@@ -55,7 +56,7 @@ export default function OTPVerification() {
         setMessage("");
 
         try {
-            const { data } = await axios.post("http://localhost:8000/verify-otp", {
+            const { data } = await axios.post(`${API_BASE_URL}/verify-otp`, {
                 email: email,
                 otp: otp
             });
@@ -91,7 +92,7 @@ export default function OTPVerification() {
         setError("");
 
         try {
-            const { data } = await axios.post("http://localhost:8000/resend-otp", {
+            const { data } = await axios.post(`${API_BASE_URL}/resend-otp`, {
                 email: email
             });
 

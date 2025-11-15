@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { MapContainer, TileLayer, useMapEvents, Marker, Popup } from "react-leaflet";
@@ -84,7 +85,7 @@ export default function ReportFire() {
         resolved: false
       };
 
-      const res = await axios.post("http://localhost:8000/reports/", reportData);
+      const res = await axios.post(`${API_BASE_URL}/reports/`, reportData);
       setSubmitted(true);
 
       // Redirect to appropriate dashboard after 3 seconds

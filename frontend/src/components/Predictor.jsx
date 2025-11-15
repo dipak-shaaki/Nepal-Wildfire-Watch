@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import API_BASE_URL from '../config';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import ManualFirePrediction from './MannualFirePrediction';
@@ -76,7 +77,7 @@ const Predictor = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:8000/api/predict/', {
+      const res = await fetch(`${API_BASE_URL}/api/predict/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -113,11 +114,11 @@ const Predictor = () => {
 
       {risk && <h3 style={{ color: 'red' }}>Fire Risk: {risk}</h3>}
     </div>
-      
+
   );
-  
+
 };
 
-  
+
 
 export default Predictor;
