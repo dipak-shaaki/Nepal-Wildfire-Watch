@@ -19,14 +19,23 @@ load_dotenv()
 
 app = FastAPI()
 
+# Configure CORS - Allow both development and production origins
 origins = [
-    "http://localhost:5173",  
-    "http://127.0.0.1:5173"    
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "https://nepal-wildfire-watch.vercel.app",  # Production frontend
 ]
-# Allow CORS for development
+
+# Add custom frontend URL from environment if provided
+frontend_url = os.getenv("FRONTEND_URL")
+if frontend_url and frontend_url not in origins:
+    origins.append(frontend_url)
+
+# Allow CORS for development and production
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
