@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 import {
   MapContainer,
   TileLayer,
@@ -137,7 +138,7 @@ export default function Predict() {
         elevation: +params.elevation,
         vpd: +params.vpd,
       };
-      const { data } = await axios.post('http://127.0.0.1:8000/predict-manual', payload);
+      const { data } = await axios.post(`${API_BASE_URL}/predict-manual`, payload);
       setResult(data); //for storing data in state // data = {fire_occurred, risk_level, probability, risk_message, ...}
     } catch (err) {
       console.error(err);
